@@ -1,0 +1,122 @@
+body {
+    background: rgb(37, 37, 37);
+    margin: 0;
+    font-family: 'Abyssinica SIL', serif;
+}
+
+
+
+.navbar {
+    background: rgb(66, 66, 66);
+}
+.container-fluid-first {
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: space-between;
+}
+.navbar-brand {
+    font-size: 30px;
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.navbar-brand:hover {
+    color: rgb(202, 200, 44);
+}
+.navbar-toggler {
+    width: 60px;
+    position: relative;
+    display: inline-block;
+    background: transparent;
+    border: none;
+    margin-right: 30px;
+}
+.navbar-toggler:hover {
+    cursor: pointer;
+}
+.navbar-toggler-icon {
+    width: 100%;
+}
+.navbar-toggler-icon div {
+    height: 3px;
+    background: white;
+    margin: 7px 0;
+    border-radius: 25px;
+    transition: 0.3s;
+}
+.one {
+    width: 45px;
+}
+.two {
+    width: 35px;
+}
+.three {
+    width: 25px;
+}
+.navbar-toggler-icon:hover div {
+    width: 100%;
+    background: rgb(202, 200, 44);
+}
+.navbar-collapse {
+    transform: translateX(-150%);
+    animation: ani 0.25s forwards;
+    padding-bottom: 10px;
+}
+@keyframes ani {
+    0% {transform: translateX(-150%);}
+  100% {transform: translateY(0);}
+  }
+
+.navbar-ul {
+    margin-left: 30px;
+    padding-left: 0;
+}
+.nav-ul-item {
+    list-style-type: none;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+.nav-link {
+    text-decoration: none;
+    color: white;
+}
+.nav-link:hover {
+    color: rgb(202, 200, 44);
+}
+
+.search-d-flex {
+    margin-left: 30px;
+}
+.form-select {
+    width: 40%;
+    font-family: 'Abyssinica SIL', serif;
+    font-size: 20px;
+}
+.form-select:hover {
+    border-color: rgb(202, 200, 44);
+}
+.form-control {
+    width: 40%;
+    font-family: 'Abyssinica SIL', serif;
+    border: 1px solid black;
+    font-size: 20px;
+}
+.form-control:hover {
+    border-color: rgb(202, 200, 44);
+}
+.btn-form-search {
+    width: 10%;
+    height: 25px;
+    font-size: 25px;
+    font-family: 'Abyssinica SIL', serif;
+    background: transparent;
+    border: transparent;
+    color: white;
+}
+.btn-form-search:hover {
+    color: rgb(202, 200, 44);
+    cursor: pointer;
+}

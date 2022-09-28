@@ -1,0 +1,73 @@
+/* Картинки */
+.preloader {
+    width: 30%;
+}
+
+.pen {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.pen::after {
+    content: '\00a0';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url(../Content/pen.svg);
+    padding: 0;
+}
+
+div.pen::after {
+    max-width: 20px;
+    width: 100%;
+    height: 0;
+    padding: 0 0 100% 0;
+}
+
+.phone {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.phone::after {
+    content: '\00a0';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url(../Content/phone.svg);
+    padding: 0;
+}
+
+div.phone::after {
+    max-width: 20px;
+    width: 100%;
+    height: 0;
+    padding: 0 0 100% 0;
+}
+
+.trash {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.trash::after {
+    content: '\00a0';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url(../Content/trash.svg);
+    padding: 0;
+}
+
+div.trash::after {
+    max-width: 20px;
+    width: 100%;
+    height: 0;
+    padding: 0 0 100% 0;
+}
+
+.buttonUp {
+    left: 99%;
+    bottom: 1%;
+    font-size: 4em;
+}

@@ -1,0 +1,26 @@
+.sortFormClass {
+    background: rgb(51, 51, 51);
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.spanSortBy {
+    width: 20%;
+    color: white;
+    font-size: 20px;
+    margin-left: 30px;
+}
+.form-control-sort {
+    width: 80%;
+    font-family: 'Abyssinica SIL', serif;
+    border: 1px solid rgb(202, 202, 202);
+    color: black;
+    font-size: 20px;
+    background: white;
+}
+.form-control-sort:hover {
+    border-color: rgb(202, 200, 44);
+}

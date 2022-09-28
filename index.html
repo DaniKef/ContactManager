@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Daniil Hurenko">
+    <meta name="description" content="Менеджер контактів для зручного користування.">
+    <meta name="keywords" content="Менеджер контактів, контакт, Contact Manager">
+    <link rel="icon" type="image/x-icon" href="Content/network.png">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Contact Manager</title>
+    <script src="main.js"></script>
+    <link href="CSS/styleIcons.css" rel="stylesheet" type="text/css">
+    <link href="CSS/styleHeader.css" rel="stylesheet" type="text/css">
+    <link href="CSS/styleMain.css" rel="stylesheet" type="text/css">
+    <link href="CSS/styleFooter.css" rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abyssinica+SIL&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="container-fluid-first">
+                <a class="navbar-brand" href="index.html" id="main">Contact manager</a>
+                <button class="navbar-toggler" id="navbar-toggler-btn">
+                    <div class="navbar-toggler-icon">
+                        <div class="one"></div>
+                        <div class="two"></div>
+                        <div class="three"></div>
+                    </div>
+                </button>
+            </div>
+            <div class="navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-ul">
+                    <li class="nav-ul-item" id="addContact">
+                        <a class="nav-link" onclick="AdderSettings();" href="#">Add Contact</a>
+                    </li>
+                    <li class="nav-ul-item" id="importContact">
+                        <a class="nav-link" onclick="importContacts();" href="#" id="import" >Import</a>
+                    </li>
+                    <li class="nav-ul-item" id="exportContact">
+                        <a class="nav-link" href="#" onclick="exportContacts();" id="export">Export</a>
+                    </li>
+                </ul>
+                <div id="searchForm" class="search-d-flex" role="search">
+                    <label for="searchSelect"></label>
+                    <select class="form-select" id="searchSelect">
+                        <option>Name</option>
+                        <option>Company</option>
+                        <option>Group</option>
+                        <option>Birthday</option>
+                        <option>Phone</option>
+                        <option>Email</option>
+                        <option>Address</option>
+                        <option>Last Call</option>
+                        <option>Addition Info</option>
+                        <option>Description</option>
+                    </select>
+                    <input class="form-control" id="searchInput" type="search" placeholder="Search...">
+                    <button class="btn-form-search" id="searchBtn" onclick="searchContact()" type="submit">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main id="mainContent">
+    <!--  Sort  -->
+    <div id="sortForm" class="sortFormClass">
+        <span class="spanSortBy">Sort by:</span>
+        <select class="form-control-sort" id="sortParam" onchange="sort()">
+            <option value="lastCall">Recent</option>
+            <option value="name">Name (A-Z)</option>
+        </select>
+    </div>
+
+    <!--  List Of Contacts  -->
+    <ul class="list-group" id="listOfContact">
+        <li class="list-group-item-loading">
+            <div>Wait for loading...</div>
+            <img class="preloader" src="Content/monophy.gif" alt="preloader">
+        </li>
+    </ul>
+
+<!--  Add And Edit Contact Form -->
+    <div id="contactForm" class="ms-3 me-3">
+        <div class="mb-2">
+            <label for="name" class="form-label text-white">Name<sup>*</sup></label>
+            <input type="text" class="form-control bg-dark text-white" id="name" aria-describedby="emailHelp" required>
+            <div id="emptyName" class="invalid-feedback collapse">
+                This field is required.
+            </div>
+        </div>
+        <div class="mb-2">
+            <label for="company" class="form-label text-white">Company</label>
+            <input type="text" class="form-control bg-dark text-white" id="company" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-2">
+            <label for="group" class="form-label text-white">Group</label>
+            <select class="form-control bg-dark text-white" id="group">
+                <option value="friend">friend</option>
+                <option value="relative">relative</option>
+                <option value="colleague">colleague</option>
+            </select>
+        </div>
+        <div class="mb-2">
+            <label for="phone" class="form-label text-white" id="Label-phone">Phone Number</label>
+            <input type="text" class="form-control bg-dark text-white" id="phone" aria-describedby="emailHelp" required>
+            <div id="emptyPhone" class="invalid-feedback collapse">
+                Incorrect phone number.
+            </div>
+        </div>
+        <div class="mb-2">
+            <label for="email" class="form-label text-white">Email</label>
+            <input type="email" class="form-control bg-dark text-white" id="email" aria-describedby="emailHelp"
+                   required>
+            <div id="emptyEmail" class="invalid-feedback collapse">
+                Incorrect email.
+            </div>
+        </div>
+        <div class="mb-2">
+            <label for="address" class="form-label text-white">Address</label>
+            <input type="text" class="form-control bg-dark text-white" id="address" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-2">
+            <label for="birthday" class="form-label text-white">Birthday</label>
+            <input type="text" class="form-control bg-dark text-white" id="birthday" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-2 collapse">
+            <label for="lastCall" class="form-label text-white" hidden>Last Call</label>
+            <input type="text" class="form-control bg-dark text-white" id="lastCall" aria-describedby="emailHelp"
+                   hidden>
+        </div>
+        <div class="mb-2">
+            <label for="additionalInfo" class="form-label text-white">Additional Info</label>
+            <input type="text" class="form-control bg-dark text-white" id="additionalInfo" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-2">
+            <label for="description" class="form-label text-white">Description</label>
+            <input type="text" class="form-control bg-dark text-white" id="description" aria-describedby="emailHelp">
+        </div>
+        <button type="submit" class="btn btn-outline-light" id="btnSubmit" onclick="SubmitBtn();">Submit</button>
+        <button type="submit" class="btn btn-outline-light" id="btnCancel" onclick="CancelBtn();">Cancel</button>
+    </div>
+
+    <!--  Import  -->
+    <form id="importContactForm" class="collapse" action="" method="post">
+        <label for="file" class="text-white">Choose file to import:</label>
+        <input id="file" type="file">
+    </form>
+
+    <!--  To top button  -->
+    <a id="btnToTop" class="btn buttonUp rounded-2 lh-1 bg-dark bg-gradient text-white position-sticky"  href="#main">^</a>
+</main>
+
+<footer>
+    <ul class="list-group-footer" id="bottomMenu">
+        <li class="list-group-item-footer">
+            <a class="nav-link" href="" target="_blank">Git Hub</a>
+        </li>
+        <li class="list-group-item-footer">
+            <a class="nav-link"
+               href="https://script.google.com/home/projects/1tNqrxG3hnXLHRdO6Gb4S0C7vXY6-xDB6Wot2QxYUQivKKY0Ny-BRvmDL/edit"
+               target="_blank">Google Script</a>
+        </li>
+        <li class="list-group-item-footer">
+            <a class="nav-link"
+               href="https://docs.google.com/spreadsheets/d/1Kfeb5dhalfHD7Zy7tn8QK48BFqBxyOP726hrSQUC4Io/edit#gid=0"
+               target="_blank">Google Spreadsheet</a>
+        </li>
+        <li class="list-group-item bg-transparent text-white">
+            <a class="nav-link" data-bs-toggle="collapse" href="#aboutUs">About Us</a>
+        </li>
+        <li class="list-group-item-footer">
+            <a class="nav-link" href="#" onclick="sync()">Table Synchronization</a>
+        </li>
+    </ul>
+    <div class="collapse text-white mb-4" id="aboutUs">
+        <span class="d-flex justify-content-center">"Менеджер контактів"</span>
+    </div>
+</footer>
+<script src="functions.js"></script>
+</body>
+</html>
