@@ -18,15 +18,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Abyssinica+SIL&display=swap" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 
 <body>
 
+     <!--  Header  -->
 <header>
     <nav class="navbar">
         <div class="container-fluid">
             <div class="container-fluid-first">
-                <a class="navbar-brand" href="index.html" id="main">Contact manager</a>
+                <a class="navbar-brand" href="index.html" id="main">Contact Manager</a>
                 <button class="navbar-toggler" id="navbar-toggler-btn">
                     <div class="navbar-toggler-icon">
                         <div class="one"></div>
@@ -71,6 +73,7 @@
     </nav>
 </header>
 
+ <!--  Main  -->
 <main id="mainContent">
     <!--  Sort  -->
     <div id="sortForm" class="sortFormClass">
@@ -81,13 +84,16 @@
         </select>
     </div>
 
+    <!--  To top button  -->
+    <a id="btnToTop" class="btn-buttonUp" href="#main">^</a>
+
     <!--  List Of Contacts  -->
-    <ul class="list-group" id="listOfContact">
-        <li class="list-group-item-loading">
-            <div>Wait for loading...</div>
-            <img class="preloader" src="Content/monophy.gif" alt="preloader">
-        </li>
-    </ul>
+        <ul class="list-group" id="listOfContact">
+            <li class="list-group-item-loading">
+                <div>Wait for loading...</div>
+                <img class="preloader" src="Content/monophy.gif" alt="preloader">
+            </li>
+        </ul>
 
 <!--  Add And Edit Contact Form -->
     <div id="contactForm" class="ms-3 me-3">
@@ -156,10 +162,10 @@
         <input id="file" type="file">
     </form>
 
-    <!--  To top button  -->
-    <a id="btnToTop" class="btn buttonUp rounded-2 lh-1 bg-dark bg-gradient text-white position-sticky"  href="#main">^</a>
+    
 </main>
 
+ <!--  Footer  -->
 <footer>
     <nav class="list-group-container">
         <ul class="list-group-footer" id="bottomMenu">

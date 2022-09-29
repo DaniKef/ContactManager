@@ -179,27 +179,27 @@
          {
              listOfContact.innerHTML += "<li class=\"list-group-item\">\n" +
                  "            <div class=\"contact-short-info\">\n" +
-                 "                <a class=\"contact-name\" href=\"#id" + index + "\">\n" +
+                 "                <a class=\"contact-name id" + index + "\">\n" +
                  row.name +
                  "                </a>\n" +
                  //Кнопка звонка
-                 "               <button type=\"button\" class=\"btn-icon\" onclick=\"updateLastCall(this)\" data-name='" + row.name + "'><span class='phoneMe'></span>Call</button>\n" +
+                 "               <button type=\"button\" class=\"btn-icon-update\" onclick=\"updateLastCall(this)\" data-name='" + row.name + "'><span class='phoneMe'></span>Call</button>\n" +
                  //Кнопка изменения контакта
-                 "                <button type=\"button\" class=\"btn-icon\" onclick=\"editContactFunction(this)\" data-name='" + row.name + "' data-company='" + row.company + "' data-group='" + row.group + "' data-birthday='" + row.birthday + "' data-phone='" + row.phone + "' data-email='" + row.email + "' data-address='" + row.address + "' data-lastCall='" + row.lastCall + "' data-addition='" + row.addition + "' data-description='" + row.description + "' data-id='" + index + "' ><span class='penMe'></span>Edit</button>\n" +
+                 "                <button type=\"button\" class=\"btn-icon-edit\" onclick=\"editContactFunction(this)\" data-name='" + row.name + "' data-company='" + row.company + "' data-group='" + row.group + "' data-birthday='" + row.birthday + "' data-phone='" + row.phone + "' data-email='" + row.email + "' data-address='" + row.address + "' data-lastCall='" + row.lastCall + "' data-addition='" + row.addition + "' data-description='" + row.description + "' data-id='" + index + "' ><span class='penMe'></span>Edit</button>\n" +
                  //Кнопка удаления контакта
-                 "                <button type=\"button\" class=\"btn-icon\" onclick=\"deleteContactFunction(this)\" data-name='" + row.name + "'><span class='trashMe'></span>Delete</button>\n" +
+                 "                <button type=\"button\" class=\"btn-icon-delete\" onclick=\"deleteContactFunction(this)\" data-name='" + row.name + "'><span class='trashMe'></span>Delete</button>\n" +
                  "            </div>\n" +
-                 "            <div class=\"contact-full-info\" id=\"id" + index + "\">\n" +
+                 "            <div style='display : none;' class=\"contact-full-info\" id=\"id" + index + "\">\n" +
                  "                <div class=\"contact-card\">\n" +
-                 "                    <p>Company: " + row.company +
-                 "                    </p><p>Group: " + row.group +
-                 "                    </p><p>Birthday: " + new Date(row.birthday).toLocaleDateString() +
-                 "                    </p><p>Phone: " + row.phone +
-                 "                    </p><p>Email: " + row.email +
-                 "                    </p><p>Address: " + row.address +
-                 "                    </p><p>Last Call: " + new Date(row.lastCall).toLocaleString() +
-                 "                    </p><p>Addition Info: " + row.addition +
-                 "                    </p><p>Description: " + row.description +
+                 "                    <p><b>Company:</b> " + row.company +
+                 "                    </p><p><b>Group:</b> " + row.group +
+                 "                    </p><p><b>Birthday:</b> " + new Date(row.birthday).toLocaleDateString() +
+                 "                    </p><p><b>Phone:</b> " + row.phone +
+                 "                    </p><p><b>Email:</b> " + row.email +
+                 "                    </p><p><b>Address:</b> " + row.address +
+                 "                    </p><p><b>Last Call:</b> " + new Date(row.lastCall).toLocaleString() +
+                 "                    </p><p><b>Addition Info:</b> " + row.addition +
+                 "                    </p><p><b>Description:</b> " + row.description +
                  "                </div>\n" +
                  "            </div>\n" +
                  "        </li>"

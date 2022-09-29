@@ -24,7 +24,7 @@ body {
     margin-bottom: 10px;
 }
 .navbar-brand:hover {
-    color: rgb(202, 200, 44);
+    color: rgb(176, 44, 202);
 }
 .navbar-toggler {
     width: 60px;
@@ -58,7 +58,7 @@ body {
 }
 .navbar-toggler-icon:hover div {
     width: 100%;
-    background: rgb(202, 200, 44);
+    background: rgb(176, 44, 202);
 }
 .navbar-collapse {
     transform: translateX(-150%);
@@ -84,7 +84,7 @@ body {
     color: white;
 }
 .nav-link:hover {
-    color: rgb(202, 200, 44);
+    color: rgb(176, 44, 202);
 }
 
 .search-d-flex {
@@ -96,7 +96,7 @@ body {
     font-size: 20px;
 }
 .form-select:hover {
-    border-color: rgb(202, 200, 44);
+    border-color: rgb(176, 44, 202);
 }
 .form-control {
     width: 40%;
@@ -105,7 +105,7 @@ body {
     font-size: 20px;
 }
 .form-control:hover {
-    border-color: rgb(202, 200, 44);
+    border-color: rgb(176, 44, 202);
 }
 .btn-form-search {
     width: 10%;
@@ -117,6 +117,6 @@ body {
     color: white;
 }
 .btn-form-search:hover {
-    color: rgb(202, 200, 44);
+    color: rgb(176, 44, 202);
     cursor: pointer;
 }

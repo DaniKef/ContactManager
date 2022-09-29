@@ -4,8 +4,8 @@
     flex-wrap: inherit;
     align-items: center;
     justify-content: space-between;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 .spanSortBy {
     width: 20%;
@@ -20,7 +20,121 @@
     color: black;
     font-size: 20px;
     background: white;
+    margin-right: 20px;
 }
 .form-control-sort:hover {
-    border-color: rgb(202, 200, 44);
+    border-color: rgb(176, 44, 202);
 }
+
+
+.btn-buttonUp {
+    position: fixed; 
+    right: 5px; 
+    top: 91%; 
+    padding: 10px;
+    background: white; 
+    border-radius: 5px;
+    font-size: 25px;
+}
+.btn-buttonUp:hover {
+    color: rgb(176, 44, 202);
+    border: 1px solid rgb(176, 44, 202);
+    border-radius: 5px;
+}
+
+
+.list-group {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.list-group-item {
+    list-style-type: none;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.list-group-item:hover {
+    border: 1px solid rgb(176, 44, 202);
+    border-radius: 7px;
+}
+.contact-name {
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    width: 60%;
+    margin-left: 10px;
+    font-weight: bold;
+}
+.contact-name:hover {
+    cursor: pointer;
+}
+.contact-short-info {
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 7px;
+    padding-right: 7px;
+    background: white;
+    border-radius: 7px;
+    font-size: 20px;
+}
+.contact-short-info:hover {
+    background: rgb(241, 241, 241);
+}
+.contact-full-info {
+    background: rgb(212, 212, 212);
+    border-radius: 7px;
+    margin-top: -16px;
+}
+.btn-icon-update {
+    position: absolute;
+    right: 250px;
+    background:url(../Content/phone.svg) no-repeat;
+    cursor:pointer;
+    border:none;
+    width: 90px;
+    height: 25px;
+    font-family: 'Abyssinica SIL', serif;
+    font-size: 18px;
+}
+.btn-icon-update:hover {
+    font-weight: bold;
+}
+.btn-icon-edit {
+    position: absolute;
+    right: 140px;
+    background:url(../Content/pen.svg) no-repeat;
+    cursor:pointer;
+    border:none;
+    width: 90px;
+    height: 25px;
+    font-family: 'Abyssinica SIL', serif;
+    font-size: 18px;
+}
+.btn-icon-edit:hover {
+    font-weight: bold;
+}
+.btn-icon-delete {
+    position: absolute;
+    right: 20px;
+    background:url(../Content/trash.svg) no-repeat;
+    cursor:pointer;
+    border:none;
+    width: 105px;
+    height: 25px;
+    font-family: 'Abyssinica SIL', serif;
+    font-size: 18px;
+}
+.btn-icon-delete:hover {
+    font-weight: bold;
+}
+.contact-card {
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 17px;
+}
+
+
+
+
+
