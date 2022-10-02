@@ -60,7 +60,7 @@
     text-decoration: none;
     color: black;
     display: inline-block;
-    width: 50%;
+    width: 30%;
     margin-left: 10px;
 }
 .contact-name:hover {
@@ -88,16 +88,15 @@
     margin-top: -16px;
 }
 .contact-buttons {
-    width: 50%;
     text-align: right;
 }
 .btn-icon-update {
     background:url(../Content/phone.svg) no-repeat;
     cursor:pointer;
     border:none;
-    width: 90px;
+    width: 75px;
     font-family: 'Abyssinica SIL', serif;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 .btn-icon-update:hover {
     font-weight: bold;
@@ -106,9 +105,9 @@
     background:url(../Content/pen.svg) no-repeat;
     cursor:pointer;
     border:none;
-    width: 90px;
+    width: 75px;
     font-family: 'Abyssinica SIL', serif;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 .btn-icon-edit:hover {
     font-weight: bold;
@@ -117,9 +116,9 @@
     background:url(../Content/trash.svg) no-repeat;
     cursor:pointer;
     border:none;
-    width: 105px;
+    width: 85px;
     font-family: 'Abyssinica SIL', serif;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 .btn-icon-delete:hover {
     font-weight: bold;
