@@ -60,7 +60,7 @@
     text-decoration: none;
     color: black;
     display: inline-block;
-    width: 30%;
+    width: 25%;
     margin-left: 10px;
 }
 .contact-name:hover {
@@ -108,6 +108,7 @@
     width: 75px;
     font-family: 'Abyssinica SIL', serif;
     font-size: 0.8em;
+    margin-left: -20px;
 }
 .btn-icon-edit:hover {
     font-weight: bold;
@@ -119,6 +120,7 @@
     width: 85px;
     font-family: 'Abyssinica SIL', serif;
     font-size: 0.8em;
+    margin-left: -20px;
 }
 .btn-icon-delete:hover {
     font-weight: bold;
