@@ -12,7 +12,7 @@
  // Функция для вывода формы добавления контакта
  function AdderSettings() {
      // вывод формы добавления контакта
-     listOfContact.classList.add("collapse");
+     /*listOfContact.classList.add("collapse");
      contactForm.classList.remove("collapse");
      sortForm.classList.add("collapse");
      document.getElementById("Label-phone").classList.remove("collapse");
@@ -26,7 +26,7 @@
      document.getElementById("email").setAttribute('value', '');
      document.getElementById("address").setAttribute('value', '');
      document.getElementById("additionalInfo").setAttribute('value', '');
-     document.getElementById("description").setAttribute('value', '');
+     document.getElementById("description").setAttribute('value', '');*/
  }
  
  // Функция для обработки нажатия на кнопку добавления/изменения контакта
@@ -36,7 +36,6 @@
      const emailInput = document.getElementById("email");
      phoneInput.value = phoneInput.value.replaceAll("-","");
      phoneInput.value = phoneInput.value.replaceAll(/[a-zA-Z]+/g,"");
-     console.log(phoneInput.value)
      let regex = new RegExp("^[a-zA-Z\\d._-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,4}$");
      if (nameInput.value==="") {
          document.getElementById("name").classList.add("is-invalid");
@@ -67,7 +66,7 @@
             window.location.href = "index.html#email";
             return;
         }
-     }
+     } 
      // Установка полей
      const companyInput = document.getElementById("company");
      const groupInput = document.getElementById("group");
@@ -76,6 +75,7 @@
      const lastCall = document.getElementById("lastCall");
      const additionInput = document.getElementById("additionalInfo");
      const descriptionInput = document.getElementById("description");
+     console.log(nameInput.value + " " + companyInput.value + " " + groupInput.value + " " + phoneInput.value + " " + emailInput.value + " " + addressInput.value + " " + birthdayInput.value + " " + lastCall.value+ " " + additionInput.value + " " + descriptionInput.value);
      // Вызов функции добавления/изменения
      addPostData(nameInput, companyInput, groupInput, phoneInput, emailInput, addressInput, birthdayInput, lastCall, additionInput, descriptionInput);
  }
@@ -86,7 +86,7 @@
  
  // Функция добавления/изменения контакта
  function addPostData(nameInput, companyInput, groupInput, phoneInput, emailInput, addressInput, birthdayInput, lastCall, additionInput, descriptionInput) {
-     base();
+     //base();
      const formData = new FormData();
      let dataOnSite = JSON.parse(localStorage.getItem("dataOnSite"));
      if ("index" in localStorage) {
@@ -120,11 +120,11 @@
          localStorage.setItem("dataOnSite", JSON.stringify(dataOnSite));
      }
  
-     function base() {
+     /*function base() {
          listOfContact.classList.remove("collapse");
          contactForm.classList.add("collapse");
          sortForm.classList.remove("collapse");
-     }
+     }*/
  
  // Указание типа операции
      formData.append('operation', 'addPostData');
@@ -141,7 +141,9 @@
      formData.append('description', descriptionInput.value);
      localStorage.setItem("size", dataOnSite.length);
      addGotData(dataOnSite);
-     window.location.href = "index.html";
+     //window.location.href = "index.html";
+     console.log(dataOnSite);
+     console.log(formData);
  // Передача данных
      fetch(scriptUrl, {
          method: 'POST', body: formData
@@ -373,7 +375,7 @@
      // Указываем номер телефона
      formData.append('name', object.getAttribute("data-name"));
      // Отображаем данные в тегах
-     sort()
+     sort();
      // Отправляем запрос
      fetch(scriptUrl, {
          method: 'POST', body: formData
@@ -409,7 +411,7 @@
          })
      }
      localStorage.setItem("dataOnSite", JSON.stringify(data));
-     addGotData(data)
+     addGotData(data);
  }
 
  function sync() {

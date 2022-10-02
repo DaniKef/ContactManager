@@ -18,7 +18,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Abyssinica+SIL&display=swap" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -41,6 +40,73 @@
                 <ul class="navbar-ul">
                     <li class="nav-ul-item" id="addContact">
                         <a class="nav-link" onclick="AdderSettings();" href="#">Add Contact</a>
+                        
+
+                                        <!--  Add And Edit Contact Form -->
+                    <div id="contactForm" class="AddAndEditContactForm">
+                        <div class="AAE-div">
+                            <label for="name" class="form-label-AAE">Name<sup>*</sup></label>
+                            <input type="text" class="form-control-AAE" id="name" aria-describedby="emailHelp" required>
+                            <div id="emptyName" class="invalid-feedback-AAE">
+                                This field is required.
+                            </div>
+                        </div>
+                        <div class="AAE-div">
+                            <label for="company" class="form-label-AAE">Company</label>
+                            <input type="text" class="form-control-AAE" id="company" aria-describedby="emailHelp">
+                        </div>
+                        <div class="AAE-div">
+                            <label for="group" class="form-label-AAE">Group</label>
+                            <select class="form-control-AAE" id="group">
+                                <option value="friend">friend</option>
+                                <option value="relative">relative</option>
+                                <option value="colleague">colleague</option>
+                            </select>
+                        </div>
+                        <div class="AAE-div">
+                            <label for="phone" class="form-label-AAE" id="Label-phone">Phone Number</label>
+                            <input type="text" class="form-control-AAE" id="phone" aria-describedby="emailHelp" required>
+                            <div id="emptyPhone" class="invalid-feedback-AAE">
+                                Incorrect phone number.
+                            </div>
+                        </div>
+                        <div class="AAE-div">
+                            <label for="email" class="form-label-AAE">Email</label>
+                            <input type="email" class="form-control-AAE" id="email" aria-describedby="emailHelp"
+                                required>
+                            <div id="emptyEmail" class="invalid-feedback-AAE">
+                                Incorrect email.
+                            </div>
+                        </div>
+                        <div class="AAE-div">
+                            <label for="address" class="form-label-AAE">Address</label>
+                            <input type="text" class="form-control-AAE" id="address" aria-describedby="emailHelp">
+                        </div>
+                        <div class="AAE-div">
+                            <label for="birthday" class="form-label-AAE">Birthday</label>
+                            <input type="text" class="form-control-AAE" id="birthday" aria-describedby="emailHelp">
+                        </div>
+                        <div class="AAE-div">
+                            <label for="lastCall" class="form-label-AAE" hidden>Last Call</label>
+                            <input type="text" class="form-control-AAE" id="lastCall" aria-describedby="emailHelp"
+                                hidden>
+                        </div>
+                        <div class="AAE-div">
+                            <label for="additionalInfo" class="form-label-AAE">Additional Info</label>
+                            <input type="text" class="form-control-AAE" id="additionalInfo" aria-describedby="emailHelp">
+                        </div>
+                        <div class="AAE-div">
+                            <label for="description" class="form-label-AAE">Description</label>
+                            <input type="text" class="form-control-AAE" id="description" aria-describedby="emailHelp">
+                        </div>
+                        <button type="submit" class="btn btn-outline-light" id="btnSubmit" onclick="SubmitBtn();">Submit</button>
+                        <button type="submit" class="btn btn-outline-light" id="btnCancel" onclick="CancelBtn();">Cancel</button>
+                    </div>
+
+
+
+
+
                     </li>
                     <li class="nav-ul-item" id="importContact">
                         <a class="nav-link" onclick="importContacts();" href="#" id="import" >Import</a>
@@ -94,67 +160,6 @@
                 <img class="preloader" src="Content/monophy.gif" alt="preloader">
             </li>
         </ul>
-
-<!--  Add And Edit Contact Form -->
-    <div id="contactForm" class="ms-3 me-3">
-        <div class="mb-2">
-            <label for="name" class="form-label text-white">Name<sup>*</sup></label>
-            <input type="text" class="form-control bg-dark text-white" id="name" aria-describedby="emailHelp" required>
-            <div id="emptyName" class="invalid-feedback collapse">
-                This field is required.
-            </div>
-        </div>
-        <div class="mb-2">
-            <label for="company" class="form-label text-white">Company</label>
-            <input type="text" class="form-control bg-dark text-white" id="company" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-2">
-            <label for="group" class="form-label text-white">Group</label>
-            <select class="form-control bg-dark text-white" id="group">
-                <option value="friend">friend</option>
-                <option value="relative">relative</option>
-                <option value="colleague">colleague</option>
-            </select>
-        </div>
-        <div class="mb-2">
-            <label for="phone" class="form-label text-white" id="Label-phone">Phone Number</label>
-            <input type="text" class="form-control bg-dark text-white" id="phone" aria-describedby="emailHelp" required>
-            <div id="emptyPhone" class="invalid-feedback collapse">
-                Incorrect phone number.
-            </div>
-        </div>
-        <div class="mb-2">
-            <label for="email" class="form-label text-white">Email</label>
-            <input type="email" class="form-control bg-dark text-white" id="email" aria-describedby="emailHelp"
-                   required>
-            <div id="emptyEmail" class="invalid-feedback collapse">
-                Incorrect email.
-            </div>
-        </div>
-        <div class="mb-2">
-            <label for="address" class="form-label text-white">Address</label>
-            <input type="text" class="form-control bg-dark text-white" id="address" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-2">
-            <label for="birthday" class="form-label text-white">Birthday</label>
-            <input type="text" class="form-control bg-dark text-white" id="birthday" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-2 collapse">
-            <label for="lastCall" class="form-label text-white" hidden>Last Call</label>
-            <input type="text" class="form-control bg-dark text-white" id="lastCall" aria-describedby="emailHelp"
-                   hidden>
-        </div>
-        <div class="mb-2">
-            <label for="additionalInfo" class="form-label text-white">Additional Info</label>
-            <input type="text" class="form-control bg-dark text-white" id="additionalInfo" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-2">
-            <label for="description" class="form-label text-white">Description</label>
-            <input type="text" class="form-control bg-dark text-white" id="description" aria-describedby="emailHelp">
-        </div>
-        <button type="submit" class="btn btn-outline-light" id="btnSubmit" onclick="SubmitBtn();">Submit</button>
-        <button type="submit" class="btn btn-outline-light" id="btnCancel" onclick="CancelBtn();">Cancel</button>
-    </div>
 
     <!--  Import  -->
     <form id="importContactForm" class="collapse" action="" method="post">
