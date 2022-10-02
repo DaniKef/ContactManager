@@ -182,12 +182,14 @@
                  "                <a class=\"contact-name id" + index + "\">\n" +
                  row.name +
                  "                </a>\n" +
+                 "                <div class = 'contact-buttons'>\n"  +
                  //Кнопка звонка
                  "               <button type=\"button\" class=\"btn-icon-update\" onclick=\"updateLastCall(this)\" data-name='" + row.name + "'><span class='phoneMe'></span>Call</button>\n" +
                  //Кнопка изменения контакта
                  "                <button type=\"button\" class=\"btn-icon-edit\" onclick=\"editContactFunction(this)\" data-name='" + row.name + "' data-company='" + row.company + "' data-group='" + row.group + "' data-birthday='" + row.birthday + "' data-phone='" + row.phone + "' data-email='" + row.email + "' data-address='" + row.address + "' data-lastCall='" + row.lastCall + "' data-addition='" + row.addition + "' data-description='" + row.description + "' data-id='" + index + "' ><span class='penMe'></span>Edit</button>\n" +
                  //Кнопка удаления контакта
                  "                <button type=\"button\" class=\"btn-icon-delete\" onclick=\"deleteContactFunction(this)\" data-name='" + row.name + "'><span class='trashMe'></span>Delete</button>\n" +
+                 "            </div>\n" +
                  "            </div>\n" +
                  "            <div style='display : none;' class=\"contact-full-info\" id=\"id" + index + "\">\n" +
                  "                <div class=\"contact-card\">\n" +

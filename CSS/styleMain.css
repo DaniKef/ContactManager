@@ -8,13 +8,13 @@
     padding-bottom: 20px;
 }
 .spanSortBy {
-    width: 20%;
+    width: 40%;
     color: white;
     font-size: 20px;
     margin-left: 30px;
 }
 .form-control-sort {
-    width: 80%;
+    width: 60%;
     font-family: 'Abyssinica SIL', serif;
     border: 1px solid rgb(202, 202, 202);
     color: black;
@@ -60,15 +60,17 @@
     text-decoration: none;
     color: black;
     display: inline-block;
-    width: 60%;
+    width: 50%;
     margin-left: 10px;
-    font-weight: bold;
 }
 .contact-name:hover {
     cursor: pointer;
+    font-weight: bold;
 }
 .contact-short-info {
-    position: relative;
+    display: flex;
+    flex-wrap: inherit;
+    justify-content: space-between;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 7px;
@@ -85,44 +87,39 @@
     border-radius: 7px;
     margin-top: -16px;
 }
+.contact-buttons {
+    width: 50%;
+    text-align: right;
+}
 .btn-icon-update {
-    position: absolute;
-    right: 250px;
     background:url(../Content/phone.svg) no-repeat;
     cursor:pointer;
     border:none;
     width: 90px;
-    height: 25px;
     font-family: 'Abyssinica SIL', serif;
-    font-size: 18px;
+    font-size: 0.9em;
 }
 .btn-icon-update:hover {
     font-weight: bold;
 }
 .btn-icon-edit {
-    position: absolute;
-    right: 140px;
     background:url(../Content/pen.svg) no-repeat;
     cursor:pointer;
     border:none;
     width: 90px;
-    height: 25px;
     font-family: 'Abyssinica SIL', serif;
-    font-size: 18px;
+    font-size: 0.9em;
 }
 .btn-icon-edit:hover {
     font-weight: bold;
 }
 .btn-icon-delete {
-    position: absolute;
-    right: 20px;
     background:url(../Content/trash.svg) no-repeat;
     cursor:pointer;
     border:none;
     width: 105px;
-    height: 25px;
     font-family: 'Abyssinica SIL', serif;
-    font-size: 18px;
+    font-size: 0.9em;
 }
 .btn-icon-delete:hover {
     font-weight: bold;
