@@ -172,7 +172,7 @@
  // Функция вывода всех контактов
 
  function showAllContacts() {
-    let dataLocal = JSON.parse(localStorage.getItem("dataOnSite"))
+    let dataLocal = JSON.parse(localStorage.getItem("dataOnSite"));
     if (("dataOnSite" in localStorage) && (dataLocal.length === JSON.parse(localStorage.getItem("size")))) {
         sort()
     } else {
@@ -195,7 +195,7 @@
      listOfContact.innerHTML = "";
      //За каждую строку в таблице получаем по ряду
      data.forEach((row, index) => {
-         if (row.name !== 'Name' && row.name !== '' && row.phone !== '' && row.email !== '') // Проверка важных ячеек, чтоб не выводилась пустота
+         if (row.name !== 'Name' && row.name !== '') // Проверка важных ячеек, чтоб не выводилась пустота
          {
              listOfContact.innerHTML += "<li class=\"list-group-item\">\n" +
                  "            <div class=\"contact-short-info\">\n" +
@@ -292,18 +292,22 @@
              //Получаем данные
              dataOnSite = data;
              //Выводим данные
-             sort();
+             console.log(dataOnSite);
+             localStorage.setItem("dataShowed", JSON.stringify(data));
+             addGotData(dataOnSite);
+             //sort();
          })
-     listOfContact.classList.remove("collapse");
-     contactForm.classList.add("collapse");
-     sortForm.classList.remove("collapse");
+     //listOfContact.classList.remove("collapse");
+     //contactForm.classList.add("collapse");
+     //sortForm.classList.remove("collapse");
+     //addGotData(dataOnSite);
  }
  
  // Функция экспорта контактов
  function exportContacts() {
      //Создаём файл со значением наших данных
      let a = document.createElement("a");
-     //let dataOnSite = JSON.parse(localStorage.getItem("dataOnSite"));  // Без этого экспортит то, что на сайте ОТОБРАЖАЕТСЯ
+     let dataOnSite = JSON.parse(localStorage.getItem("dataOnSite"));  // Без этого экспортит то, что на сайте ОТОБРАЖАЕТСЯ
      let file = new Blob([JSON.stringify(dataOnSite.reverse())], {type: "application/json"});
      a.href = URL.createObjectURL(file);
      a.download = "export.json";
@@ -403,7 +407,7 @@
  
  function sort() {
      let sortType = document.getElementById("sortParam");
-     sortType.value;
+     //sortType.value;
      let data = JSON.parse(localStorage.getItem("dataOnSite"));
      if (sortType.value == "name") {
          data.sort(function (a, b) {
