@@ -121,11 +121,49 @@ body {
 }
 
 .AddAndEditContactForm {
-    text-align: center;
     background: rgb(56, 56, 56);
     width: 80%;
     margin-left: auto;
     margin-right: auto;
     border-radius: 7px;
     margin-top: 15px;
+    font-size: ;
+}
+.AAE-div {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    margin-bottom: 15px;
+    color: white;
+}
+.form-label-AAE {
+    margin-bottom: 5px;
+}
+.form-label-AAE sup {
+    color: rgb(176, 44, 202);
+}
+.form-control-AAE {
+    margin-bottom: 5px;
+    font-family: 'Abyssinica SIL', serif;
+    border: 1px solid black;
+    font-size: 18px;
+}
+.form-control-AAE:hover {
+    border-color: rgb(176, 44, 202);
+}
+.AAE-buttons {
+    text-align: center;
+    padding-bottom: 15px;
+}
+.btn-AEE {
+    font-family: 'Abyssinica SIL', serif;
+    border: none;
+    background: transparent;
+    color:white;
+    font-size: 20px;
+}
+.btn-AEE:hover {
+    color: rgb(176, 44, 202);
+    cursor: pointer;
 }

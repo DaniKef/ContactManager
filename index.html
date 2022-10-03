@@ -47,7 +47,7 @@
                         <div class="AAE-div">
                             <label for="name" class="form-label-AAE">Name<sup>*</sup></label>
                             <input type="text" class="form-control-AAE" id="name" aria-describedby="emailHelp" required>
-                            <div id="emptyName" class="invalid-feedback-AAE">
+                            <div id="emptyName" class="invalid-feedback-AAE" style="display: none;">
                                 This field is required.
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                         <div class="AAE-div">
                             <label for="phone" class="form-label-AAE" id="Label-phone">Phone Number</label>
                             <input type="text" class="form-control-AAE" id="phone" aria-describedby="emailHelp" required>
-                            <div id="emptyPhone" class="invalid-feedback-AAE">
+                            <div id="emptyPhone" class="invalid-feedback-AAE" style="display: none;">
                                 Incorrect phone number.
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                             <label for="email" class="form-label-AAE">Email</label>
                             <input type="email" class="form-control-AAE" id="email" aria-describedby="emailHelp"
                                 required>
-                            <div id="emptyEmail" class="invalid-feedback-AAE">
+                            <div id="emptyEmail" class="invalid-feedback-AAE" style="display: none;">
                                 Incorrect email.
                             </div>
                         </div>
@@ -99,8 +99,10 @@
                             <label for="description" class="form-label-AAE">Description</label>
                             <input type="text" class="form-control-AAE" id="description" aria-describedby="emailHelp">
                         </div>
-                        <button type="submit" class="btn btn-outline-light" id="btnSubmit" onclick="SubmitBtn();">Submit</button>
-                        <button type="submit" class="btn btn-outline-light" id="btnCancel" onclick="CancelBtn();">Cancel</button>
+                        <div class="AAE-buttons">
+                            <button type="submit" class="btn-AEE" id="btnSubmit" onclick="SubmitBtn();">Submit</button>
+                            <button type="submit" class="btn-AEE" id="btnCancel" onclick="CancelBtn();">Cancel</button>
+                        </div>
                     </div>
 
 
