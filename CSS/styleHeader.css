@@ -148,6 +148,7 @@ body {
     font-family: 'Abyssinica SIL', serif;
     border: 1px solid black;
     font-size: 18px;
+    width: 100%;
 }
 .form-control-AAE:hover {
     border-color: rgb(176, 44, 202);
