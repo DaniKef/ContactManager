@@ -23,9 +23,6 @@ body {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-.navbar-brand:hover {
-    color: rgb(176, 44, 202);
-}
 .navbar-toggler {
     width: 60px;
     position: relative;
@@ -135,6 +132,8 @@ body {
     display: grid;
     margin-bottom: 15px;
     color: white;
+    transform: translateX(50%);
+    animation: ani 0.25s forwards;
 }
 .form-label-AAE {
     margin-bottom: 5px;
@@ -151,6 +150,9 @@ body {
 }
 .form-control-AAE:hover {
     border-color: rgb(176, 44, 202);
+}
+.invalid-feedback-AAE {
+    color: red;
 }
 .AAE-buttons {
     padding-left: 10%;

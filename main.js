@@ -1,11 +1,8 @@
-/**
- * decoration tools
- */
  const scriptUrl = 'https://script.google.com/macros/s/AKfycbzsHqtRSGLkIb-MsjLPdP_i1z4Yz94CAqJyqqIgubUpuCPmwRtQRry-sh9VNOdlpIVJgg/exec'; // Ссылка на развернутое веб-приложение gas
  let dataOnSite; // Данные которые сейчас на экране
  
  window.onload = () => {
-     contactForm.classList.add("collapse");
+     //contactForm.classList.add("collapse");
      showAllContacts(); // Показать все контакты\
  }
  
@@ -27,6 +24,14 @@
      document.getElementById("address").setAttribute('value', '');
      document.getElementById("additionalInfo").setAttribute('value', '');
      document.getElementById("description").setAttribute('value', '');*/
+     if(contactForm.style.display == "none")
+     {
+        contactForm.style.display = "block";
+     }
+     else 
+     {
+        contactForm.style.display = "none";
+     }
  }
  
  // Функция для обработки нажатия на кнопку добавления/изменения контакта
@@ -37,23 +42,30 @@
      phoneInput.value = phoneInput.value.replaceAll("-","");
      phoneInput.value = phoneInput.value.replaceAll(/[a-zA-Z]+/g,"");
      let regex = new RegExp("^[a-zA-Z\\d._-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,4}$");
-     if (nameInput.value==="") {
-         document.getElementById("name").classList.add("is-invalid");
-         document.getElementById("emptyName").classList.remove("collapse");
+     if (nameInput.value =="") 
+     {
+         //document.getElementById("name").classList.add("is-invalid");
+         //document.getElementById("emptyName").classList.remove("collapse");
+         emptyName.style.display = "block";
+         emptyPhone.style.display = "none";
+         emptyEmail.style.display = "none";
          window.location.href = "index.html#name";
          return;
      }
      if(phoneInput.value != "")
      {
-        if(phoneInput.value[0]!=="3") {
+        if(phoneInput.value[0] != "3") {
             phoneInput.value = "38"+phoneInput.value;
         }
-        if(phoneInput.value[0]==="+") {
+        if(phoneInput.value[0] == "+") {
             phoneInput.value = phoneInput.value.substring(1,phoneInput.value.length);
         }
-        if (phoneInput.value==="" || phoneInput.value.length !== 12) {
-            document.getElementById("phone").classList.add("is-invalid");
-            document.getElementById("emptyPhone").classList.remove("collapse");
+        if (phoneInput.value == "" || phoneInput.value.length != 12) {
+            //document.getElementById("phone").classList.add("is-invalid");
+            //document.getElementById("emptyPhone").classList.remove("collapse");
+            emptyPhone.style.display = "block";
+            emptyName.style.display = "none";
+            emptyEmail.style.display = "none";
             window.location.href = "index.html#phone";
             return;
         }
@@ -61,8 +73,11 @@
      if(emailInput.value != "")
      {
         if (!(regex.test(emailInput.value))) {
-            document.getElementById("email").classList.add("is-invalid");
-            document.getElementById("emptyEmail").classList.remove("collapse");
+            //document.getElementById("email").classList.add("is-invalid");
+            //document.getElementById("emptyEmail").classList.remove("collapse");
+            emptyEmail.style.display = "block";
+            emptyName.style.display = "none";
+            emptyPhone.style.display = "none";
             window.location.href = "index.html#email";
             return;
         }
@@ -75,6 +90,9 @@
      const lastCall = document.getElementById("lastCall");
      const additionInput = document.getElementById("additionalInfo");
      const descriptionInput = document.getElementById("description");
+     emptyName.style.display = "none";
+     emptyPhone.style.display = "none";
+     emptyEmail.style.display = "none";
      console.log(nameInput.value + " " + companyInput.value + " " + groupInput.value + " " + phoneInput.value + " " + emailInput.value + " " + addressInput.value + " " + birthdayInput.value + " " + lastCall.value+ " " + additionInput.value + " " + descriptionInput.value);
      // Вызов функции добавления/изменения
      addPostData(nameInput, companyInput, groupInput, phoneInput, emailInput, addressInput, birthdayInput, lastCall, additionInput, descriptionInput);
@@ -148,7 +166,7 @@
      fetch(scriptUrl, {
          method: 'POST', body: formData
      })
-         .then(res => res.json())
+         .then(res => res.json());
  }
  
  // Функция вывода всех контактов

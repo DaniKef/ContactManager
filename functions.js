@@ -2,7 +2,7 @@ const navbarSupportedContent = document.getElementById('navbarSupportedContent')
 navbarSupportedContent.style.display ="none";
 const aboutUs = document.getElementById('aboutUs');
 aboutUs.style.display = "none";
-//const listContacts = document.getElementById('listOfContact');
+contactForm.style.display = "none";
 
 document.addEventListener('click',(e) =>
   {
@@ -23,14 +23,18 @@ document.addEventListener('click',(e) =>
 );
 
 
-function OpenCLoseNavbar() {
+function OpenCLoseNavbar() {                           // Отображение меню
     if(navbarSupportedContent.style.display =="none")
     {
         navbarSupportedContent.style.display = "block";
     }
-    else 
+    else // Если меню скрыто - скрывать все внутри
     {
         navbarSupportedContent.style.display ="none";
+        contactForm.style.display = "none";
+        emptyName.style.display = "none";
+        emptyPhone.style.display = "none";
+        emptyEmail.style.display = "none";
     }
 }
 

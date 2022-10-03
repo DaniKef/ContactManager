@@ -132,7 +132,19 @@
     font-size: 17px;
 }
 
-
+.list-group-item-loading {
+    list-style-type: none;
+    text-align: center;
+}
+.preloader {
+    width: 60%;
+    height: 30%;
+}
+.list-group-item-loading div {
+    color: rgb(176, 44, 202);
+    font-family: 'Abyssinica SIL', serif;
+    font-size: 20px;
+}
 
 
 
