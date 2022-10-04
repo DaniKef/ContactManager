@@ -46,14 +46,14 @@
                     <div id="contactForm" class="AddAndEditContactForm">
                         <div class="AAE-div">
                             <label for="name" class="form-label-AAE">Name<sup>*</sup></label>
-                            <input type="text" class="form-control-AAE" id="name" aria-describedby="emailHelp" required>
+                            <input type="text" class="form-control-AAE" id="name">
                             <div id="emptyName" class="invalid-feedback-AAE" style="display: none;">
                                 This field is required.
                             </div>
                         </div>
                         <div class="AAE-div">
                             <label for="company" class="form-label-AAE">Company</label>
-                            <input type="text" class="form-control-AAE" id="company" aria-describedby="emailHelp">
+                            <input type="text" class="form-control-AAE" id="company">
                         </div>
                         <div class="AAE-div">
                             <label for="group" class="form-label-AAE">Group</label>
@@ -65,48 +65,43 @@
                         </div>
                         <div class="AAE-div">
                             <label for="phone" class="form-label-AAE" id="Label-phone">Phone Number</label>
-                            <input type="text" class="form-control-AAE" id="phone" aria-describedby="emailHelp" required>
+                            <input type="text" class="form-control-AAE" id="phone">
                             <div id="emptyPhone" class="invalid-feedback-AAE" style="display: none;">
                                 Incorrect phone number.
                             </div>
                         </div>
                         <div class="AAE-div">
                             <label for="email" class="form-label-AAE">Email</label>
-                            <input type="email" class="form-control-AAE" id="email" aria-describedby="emailHelp"
-                                required>
+                            <input type="email" class="form-control-AAE" id="email">
                             <div id="emptyEmail" class="invalid-feedback-AAE" style="display: none;">
                                 Incorrect email.
                             </div>
                         </div>
                         <div class="AAE-div">
                             <label for="address" class="form-label-AAE">Address</label>
-                            <input type="text" class="form-control-AAE" id="address" aria-describedby="emailHelp">
+                            <input type="text" class="form-control-AAE" id="address">
                         </div>
                         <div class="AAE-div">
                             <label for="birthday" class="form-label-AAE">Birthday</label>
-                            <input type="text" class="form-control-AAE" id="birthday" aria-describedby="emailHelp">
+                            <input type="text" class="form-control-AAE" id="birthday">
                         </div>
                         <div class="AAE-div">
                             <label for="lastCall" class="form-label-AAE" hidden>Last Call</label>
-                            <input type="text" class="form-control-AAE" id="lastCall" aria-describedby="emailHelp"
-                                hidden>
+                            <input type="text" class="form-control-AAE" id="lastCall">
                         </div>
                         <div class="AAE-div">
                             <label for="additionalInfo" class="form-label-AAE">Additional Info</label>
-                            <input type="text" class="form-control-AAE" id="additionalInfo" aria-describedby="emailHelp">
+                            <input type="text" class="form-control-AAE" id="additionalInfo">
                         </div>
                         <div class="AAE-div">
                             <label for="description" class="form-label-AAE">Description</label>
-                            <input type="text" class="form-control-AAE" id="description" aria-describedby="emailHelp">
+                            <input type="text" class="form-control-AAE" id="description">
                         </div>
                         <div class="AAE-buttons">
                             <button type="submit" class="btn-AEE" id="btnSubmit" onclick="SubmitBtn();">Submit</button>
                             <button type="submit" class="btn-AEE" id="btnCancel" onclick="CancelBtn();">Cancel</button>
                         </div>
                     </div>
-
-
-
 
 
                     </li>
@@ -154,6 +149,67 @@
 
     <!--  To top button  -->
     <a id="btnToTop" class="btn-buttonUp" href="#main">^</a>
+
+    <!--  Add And Edit Contact Form -->
+    <div id="contactForm1" class="AddAndEditContactForm">
+    <div class="AAE-div">
+        <label for="name1" class="form-label-AAE">Name<sup>*</sup></label>
+        <input type="text" class="form-control-AAE" id="name1" readonly>
+        <div id="emptyName1" class="invalid-feedback-AAE" style="display: none;">
+            This field is required.
+        </div>
+    </div>
+    <div class="AAE-div">
+        <label for="company1" class="form-label-AAE">Company</label>
+        <input type="text" class="form-control-AAE" id="company1">
+    </div>
+    <div class="AAE-div">
+        <label for="group1" class="form-label-AAE">Group</label>
+        <select class="form-control-AAE" id="group1">
+            <option value="friend">friend</option>
+            <option value="relative">relative</option>
+            <option value="colleague">colleague</option>
+        </select>
+    </div>
+    <div class="AAE-div">
+        <label for="phone1" class="form-label-AAE" id="Label-phone1">Phone Number</label>
+        <input type="text" class="form-control-AAE" id="phone1">
+        <div id="emptyPhone1" class="invalid-feedback-AAE" style="display: none;">
+            Incorrect phone number.
+        </div>
+    </div>
+    <div class="AAE-div">
+        <label for="email1" class="form-label-AAE">Email</label>
+        <input type="email" class="form-control-AAE" id="email1">
+        <div id="emptyEmail1" class="invalid-feedback-AAE" style="display: none;">
+            Incorrect email.
+        </div>
+    </div>
+    <div class="AAE-div">
+        <label for="address1" class="form-label-AAE">Address</label>
+        <input type="text" class="form-control-AAE" id="address1">
+    </div>
+    <div class="AAE-div">
+        <label for="birthday1" class="form-label-AAE">Birthday</label>
+        <input type="text" class="form-control-AAE" id="birthday1">
+    </div>
+    <div class="AAE-div">
+        <label for="lastCall1" class="form-label-AAE">Last Call</label>
+        <input type="text" class="form-control-AAE" id="lastCall1">
+    </div>
+    <div class="AAE-div">
+        <label for="additionalInfo1" class="form-label-AAE">Additional Info</label>
+        <input type="text" class="form-control-AAE" id="additionalInfo1">
+    </div>
+    <div class="AAE-div">
+        <label for="description1" class="form-label-AAE">Description</label>
+        <input type="text" class="form-control-AAE" id="description1">
+    </div>
+    <div class="AAE-buttons">
+        <button type="submit" class="btn-AEE" id="btnSubmit1" onclick="SubmitBtn1();">Submit</button>
+        <button type="submit" class="btn-AEE" id="btnCancel1" onclick="CancelBtn();">Back</button>
+    </div>
+</div>
 
     <!--  List Of Contacts  -->
         <ul class="list-group" id="listOfContact">

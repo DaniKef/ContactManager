@@ -2,28 +2,13 @@
  let dataOnSite; // Данные которые сейчас на экране
  
  window.onload = () => {
-     //contactForm.classList.add("collapse");
      showAllContacts(); // Показать все контакты\
+     console.log("ShowAllContacts");
  }
  
  // Функция для вывода формы добавления контакта
- function AdderSettings() {
-     // вывод формы добавления контакта
-     /*listOfContact.classList.add("collapse");
-     contactForm.classList.remove("collapse");
-     sortForm.classList.add("collapse");
-     document.getElementById("Label-phone").classList.remove("collapse");
-     document.getElementById("phone").classList.remove("collapse");
-     // Установка полей пустыми
-     document.getElementById("name").setAttribute('value', '');
-     document.getElementById("company").setAttribute('value', '');
-     document.getElementById("group").setAttribute('value', '');
-     document.getElementById("birthday").setAttribute('value', '');
-     document.getElementById("phone").setAttribute('value', '');
-     document.getElementById("email").setAttribute('value', '');
-     document.getElementById("address").setAttribute('value', '');
-     document.getElementById("additionalInfo").setAttribute('value', '');
-     document.getElementById("description").setAttribute('value', '');*/
+ function AdderSettings() 
+ {
      if(contactForm.style.display == "none")
      {
         contactForm.style.display = "block";
@@ -34,8 +19,9 @@
      }
  }
  
- // Функция для обработки нажатия на кнопку добавления/изменения контакта
- function SubmitBtn() {
+ // Функция для обработки нажатия на кнопку добавления контакта
+ function SubmitBtn() 
+ {
      const nameInput = document.getElementById("name");
      const phoneInput = document.getElementById("phone");
      const emailInput = document.getElementById("email");
@@ -44,8 +30,6 @@
      let regex = new RegExp("^[a-zA-Z\\d._-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,4}$");
      if (nameInput.value =="") 
      {
-         //document.getElementById("name").classList.add("is-invalid");
-         //document.getElementById("emptyName").classList.remove("collapse");
          emptyName.style.display = "block";
          emptyPhone.style.display = "none";
          emptyEmail.style.display = "none";
@@ -61,8 +45,6 @@
             phoneInput.value = phoneInput.value.substring(1,phoneInput.value.length);
         }
         if (phoneInput.value == "" || phoneInput.value.length != 12) {
-            //document.getElementById("phone").classList.add("is-invalid");
-            //document.getElementById("emptyPhone").classList.remove("collapse");
             emptyPhone.style.display = "block";
             emptyName.style.display = "none";
             emptyEmail.style.display = "none";
@@ -73,8 +55,6 @@
      if(emailInput.value != "")
      {
         if (!(regex.test(emailInput.value))) {
-            //document.getElementById("email").classList.add("is-invalid");
-            //document.getElementById("emptyEmail").classList.remove("collapse");
             emptyEmail.style.display = "block";
             emptyName.style.display = "none";
             emptyPhone.style.display = "none";
@@ -98,31 +78,93 @@
      addPostData(nameInput, companyInput, groupInput, phoneInput, emailInput, addressInput, birthdayInput, lastCall, additionInput, descriptionInput);
  }
 
- function CancelBtn() {
+  // Функция для обработки нажатия на кнопку изменения контакта
+  function SubmitBtn1() 
+  {
+      const nameInput = document.getElementById("name1");
+      const phoneInput = document.getElementById("phone1");
+      const emailInput = document.getElementById("email1");
+      phoneInput.value = phoneInput.value.replaceAll("-","");
+      phoneInput.value = phoneInput.value.replaceAll(/[a-zA-Z]+/g,"");
+      let regex = new RegExp("^[a-zA-Z\\d._-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,4}$");
+      if (nameInput.value =="") 
+      {
+          emptyName1.style.display = "block";
+          emptyPhone1.style.display = "none";
+          emptyEmail1.style.display = "none";
+          window.location.href = "index.html#name1";
+          return;
+      }
+      if(phoneInput.value != "")
+      {
+         if(phoneInput.value[0] != "3") {
+             phoneInput.value = "38"+phoneInput.value;
+         }
+         if(phoneInput.value[0] == "+") {
+             phoneInput.value = phoneInput.value.substring(1,phoneInput.value.length);
+         }
+         if (phoneInput.value == "" || phoneInput.value.length != 12) {
+             emptyPhone1.style.display = "block";
+             emptyName1.style.display = "none";
+             emptyEmail1.style.display = "none";
+             window.location.href = "index.html#phone1";
+             return;
+         }
+      }
+      if(emailInput.value != "")
+      {
+         if (!(regex.test(emailInput.value))) {
+             emptyEmail1.style.display = "block";
+             emptyName1.style.display = "none";
+             emptyPhone1.style.display = "none";
+             window.location.href = "index.html#email1";
+             return;
+         }
+      } 
+      // Установка полей
+      const companyInput = document.getElementById("company1");
+      const groupInput = document.getElementById("group1");
+      const addressInput = document.getElementById("address1");
+      const birthdayInput = document.getElementById("birthday1");
+      const lastCall = document.getElementById("lastCall1");
+      const additionInput = document.getElementById("additionalInfo1");
+      const descriptionInput = document.getElementById("description1");
+      emptyName1.style.display = "none";
+      emptyPhone1.style.display = "none";
+      emptyEmail1.style.display = "none";
+      console.log(nameInput.value + " " + companyInput.value + " " + groupInput.value + " " + phoneInput.value + " " + emailInput.value + " " + addressInput.value + " " + birthdayInput.value + " " + lastCall.value+ " " + additionInput.value + " " + descriptionInput.value);
+      // Вызов функции добавления/изменения
+      addPostData(nameInput, companyInput, groupInput, phoneInput, emailInput, addressInput, birthdayInput, lastCall, additionInput, descriptionInput);
+  }
+
+ function CancelBtn() 
+ {
      window.location.href = "index.html";
  }
  
  // Функция добавления/изменения контакта
  function addPostData(nameInput, companyInput, groupInput, phoneInput, emailInput, addressInput, birthdayInput, lastCall, additionInput, descriptionInput) {
-     //base();
      const formData = new FormData();
      let dataOnSite = JSON.parse(localStorage.getItem("dataOnSite"));
-     if ("index" in localStorage) {
-         dataOnSite[localStorage.getItem("index")] = {
-             "name": nameInput.value,
-             "company": companyInput.value,
-             "group": groupInput.value,
-             "birthday": birthdayInput.value,
-             "phone": parseInt(phoneInput.value),
-             "email": emailInput.value,
-             "address": addressInput.value,
-             "lastCall": lastCall.value,
-             "addition": additionInput.value,
-             "description": descriptionInput.value
-         };
-         localStorage.removeItem("index")
-         localStorage.setItem("dataOnSite", JSON.stringify(dataOnSite));
-     } else {
+     if ("index" in localStorage) 
+     {
+        dataOnSite[localStorage.getItem("index")] = {
+            "name": nameInput.value,
+            "company": companyInput.value,
+            "group": groupInput.value,
+            "birthday": birthdayInput.value,
+            "phone": parseInt(phoneInput.value),
+            "email": emailInput.value,
+            "address": addressInput.value,
+            "lastCall": lastCall.value,
+            "addition": additionInput.value,
+            "description": descriptionInput.value
+        };
+        localStorage.removeItem("index")
+        localStorage.setItem("dataOnSite", JSON.stringify(dataOnSite));
+     } 
+     else 
+     {
          dataOnSite.unshift({
              "name": nameInput.value,
              "company": companyInput.value,
@@ -137,12 +179,6 @@
          });
          localStorage.setItem("dataOnSite", JSON.stringify(dataOnSite));
      }
- 
-     /*function base() {
-         listOfContact.classList.remove("collapse");
-         contactForm.classList.add("collapse");
-         sortForm.classList.remove("collapse");
-     }*/
  
  // Указание типа операции
      formData.append('operation', 'addPostData');
@@ -166,11 +202,11 @@
      fetch(scriptUrl, {
          method: 'POST', body: formData
      })
-         .then(res => res.json());
+         .then(res => res.json())
+         .then(data => {window.location.href = "index.html";});
  }
  
  // Функция вывода всех контактов
-
  function showAllContacts() {
     let dataLocal = JSON.parse(localStorage.getItem("dataOnSite"));
     if (("dataOnSite" in localStorage) && (dataLocal.length === JSON.parse(localStorage.getItem("size")))) {
@@ -232,21 +268,22 @@
  // Функция изменения контакта
  function editContactFunction(object) {
      // Выводим форму для заполнения
-     listOfContact.classList.add("collapse");
-     sortForm.classList.add("collapse");
-     contactForm.classList.remove("collapse");
- 
+     //listOfContact.classList.add("collapse");
+     //sortForm.classList.add("collapse");
+     //contactForm.classList.remove("collapse");
+     listOfContact.style.display = "none";
+     contactForm1.style.display = "block";
      // Заполняем поля уже имеющимися данными
-     document.getElementById("name").setAttribute('value', object.getAttribute("data-name"));
-     document.getElementById("company").setAttribute('value', object.getAttribute("data-company"));
-     document.getElementById("group").setAttribute('value', object.getAttribute("data-group"));
-     document.getElementById("birthday").setAttribute('value', object.getAttribute("data-birthday"));
-     document.getElementById("phone").setAttribute('value', object.getAttribute("data-phone"));
-     document.getElementById("email").setAttribute('value', object.getAttribute("data-email"));
-     document.getElementById("address").setAttribute('value', object.getAttribute("data-address"));
-     document.getElementById("lastCall").setAttribute('value', object.getAttribute("data-lastCall"));
-     document.getElementById("additionalInfo").setAttribute('value', object.getAttribute("data-addition"));
-     document.getElementById("description").setAttribute('value', object.getAttribute("data-description"));
+     document.getElementById("name1").setAttribute('value', object.getAttribute("data-name"));
+     document.getElementById("company1").setAttribute('value', object.getAttribute("data-company"));
+     document.getElementById("group1").setAttribute('value', object.getAttribute("data-group"));
+     document.getElementById("birthday1").setAttribute('value', object.getAttribute("data-birthday"));
+     document.getElementById("phone1").setAttribute('value', object.getAttribute("data-phone"));
+     document.getElementById("email1").setAttribute('value', object.getAttribute("data-email"));
+     document.getElementById("address1").setAttribute('value', object.getAttribute("data-address"));
+     document.getElementById("lastCall1").setAttribute('value', object.getAttribute("data-lastCall"));
+     document.getElementById("additionalInfo1").setAttribute('value', object.getAttribute("data-addition"));
+     document.getElementById("description1").setAttribute('value', object.getAttribute("data-description"));
      //let tmp = ('{"name":"' + object.getAttribute("data-name") + '","company":"' + object.getAttribute("data-company") + '","group":"' + object.getAttribute("data-group") + '","birthday":"' + object.getAttribute("data-birthday") + '","phone":' + object.getAttribute("data-phone") + ',"email":"' + object.getAttribute("data-email") + '","address":"' + object.getAttribute("data-address") + '","lastCall":' + JSON.stringify(object.getAttribute("data-lastCall")) + ',"addition":"' + object.getAttribute("data-addition") + '","description":"' + object.getAttribute("data-description") + '"}')
      localStorage.setItem("index", object.getAttribute("data-id"));
  }

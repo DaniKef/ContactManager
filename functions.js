@@ -3,6 +3,7 @@ navbarSupportedContent.style.display ="none";
 const aboutUs = document.getElementById('aboutUs');
 aboutUs.style.display = "none";
 contactForm.style.display = "none";
+contactForm1.style.display = "none";
 
 document.addEventListener('click',(e) =>
   {
@@ -30,11 +31,11 @@ function OpenCLoseNavbar() {                           // Отображение
     }
     else // Если меню скрыто - скрывать все внутри
     {
-        navbarSupportedContent.style.display ="none";
-        contactForm.style.display = "none";
-        emptyName.style.display = "none";
-        emptyPhone.style.display = "none";
         emptyEmail.style.display = "none";
+        emptyPhone.style.display = "none";
+        emptyName.style.display = "none";
+        contactForm.style.display = "none";
+        navbarSupportedContent.style.display ="none";
     }
 }
 
