@@ -3,7 +3,7 @@
  
  window.onload = () => {
      showAllContacts(); // Показать все контакты\
-     console.log("ShowAllContacts");
+     dataOnSite = JSON.parse(localStorage.getItem("dataOnSite"));
  }
  
  // Функция для вывода формы добавления контакта
@@ -28,7 +28,7 @@
      phoneInput.value = phoneInput.value.replaceAll("-","");
      phoneInput.value = phoneInput.value.replaceAll(/[a-zA-Z]+/g,"");
      let regex = new RegExp("^[a-zA-Z\\d._-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,4}$");
-     if (nameInput.value =="") 
+     if (nameInput.value =="" || IsNameInDataOnSite(nameInput.value)) 
      {
          emptyName.style.display = "block";
          emptyPhone.style.display = "none";
@@ -141,11 +141,22 @@
  {
      window.location.href = "index.html";
  }
+
+ // Проверяет есть ли имя  в базе данных
+ function IsNameInDataOnSite(name)
+{
+    for(var i = 0; i < dataOnSite.length; i++)
+    {
+        if(name == dataOnSite[i].name) return true;
+    }
+    return false;
+}
+
  
  // Функция добавления/изменения контакта
  function addPostData(nameInput, companyInput, groupInput, phoneInput, emailInput, addressInput, birthdayInput, lastCall, additionInput, descriptionInput) {
      const formData = new FormData();
-     let dataOnSite = JSON.parse(localStorage.getItem("dataOnSite"));
+     dataOnSite = JSON.parse(localStorage.getItem("dataOnSite"));
      if ("index" in localStorage) 
      {
         dataOnSite[localStorage.getItem("index")] = {
@@ -330,7 +341,7 @@
              dataOnSite = data;
              //Выводим данные
              console.log(dataOnSite);
-             localStorage.setItem("dataShowed", JSON.stringify(data));
+             //localStorage.setItem("dataShowed", JSON.stringify(data));
              addGotData(dataOnSite);
              //sort();
          })
@@ -344,7 +355,7 @@
  function exportContacts() {
      //Создаём файл со значением наших данных
      let a = document.createElement("a");
-     let dataOnSite = JSON.parse(localStorage.getItem("dataOnSite"));  // Без этого экспортит то, что на сайте ОТОБРАЖАЕТСЯ
+     //let dataOnSite = JSON.parse(localStorage.getItem("dataOnSite"));  // Без этого экспортит то, что на сайте ОТОБРАЖАЕТСЯ
      let file = new Blob([JSON.stringify(dataOnSite.reverse())], {type: "application/json"});
      a.href = URL.createObjectURL(file);
      a.download = "export.json";

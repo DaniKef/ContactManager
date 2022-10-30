@@ -63,8 +63,9 @@ main {
     text-decoration: none;
     color: black;
     display: inline-block;
-    width: 25%;
+    width: 32%;
     margin-left: 10px;
+    word-wrap: break-word;
 }
 .contact-name:hover {
     cursor: pointer;
