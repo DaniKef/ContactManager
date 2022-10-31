@@ -42,13 +42,16 @@
                         <a class="nav-link" onclick="AdderSettings();" href="#">Add Contact</a>
                         
 
-                                        <!--  Add And Edit Contact Form -->
+                                        <!--  Add Contact Form -->
                     <div id="contactForm" class="AddAndEditContactForm">
                         <div class="AAE-div">
                             <label for="name" class="form-label-AAE">Name<sup>*</sup></label>
                             <input type="text" class="form-control-AAE" id="name">
                             <div id="emptyName" class="invalid-feedback-AAE" style="display: none;">
                                 This field is incorrect.
+                            </div>
+                            <div id="existsName" class="invalid-feedback-AAE" style="display: none;">
+                                This name already exists.
                             </div>
                         </div>
                         <div class="AAE-div">
@@ -142,15 +145,17 @@
     <div id="sortForm" class="sortFormClass">
         <span class="spanSortBy">Sort by:</span>
         <select class="form-control-sort" id="sortParam" onchange="sort()">
-            <option value="lastCall">Recent</option>
-            <option value="name">Name (A-Z)</option>
+            <option value="nameAZ">Name (A-Z)</option>
+            <option value="nameZA">Name (Z-A)</option>
+            <option value="lastCall">Recent Last Call</option>
+            <option value="birthday">Birthday</option>
         </select>
     </div>
 
     <!--  To top button  -->
     <a id="btnToTop" class="btn-buttonUp" href="#main">^</a>
 
-    <!--  Add And Edit Contact Form -->
+    <!--  Edit Contact Form -->
     <div id="contactForm1" class="AddAndEditContactForm">
     <div class="AAE-div">
         <label for="name1" class="form-label-AAE">Name<sup>*</sup></label>

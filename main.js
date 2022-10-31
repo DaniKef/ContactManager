@@ -1,4 +1,4 @@
- const scriptUrl = 'https://script.google.com/macros/s/AKfycbzsHqtRSGLkIb-MsjLPdP_i1z4Yz94CAqJyqqIgubUpuCPmwRtQRry-sh9VNOdlpIVJgg/exec'; // Ссылка на развернутое веб-приложение gas
+ const scriptUrl = 'https://script.google.com/macros/s/AKfycbxpGcWWjOAfsEscDm7fh1olX6sOtfrCKe0Yy7CdkL_576PbctURWBBucWTMkQpRh7ebvg/exec'; // Ссылка на развернутое веб-приложение gas
  let dataOnSite; // Данные которые сейчас на экране
  
  window.onload = () => {
@@ -28,9 +28,17 @@
      phoneInput.value = phoneInput.value.replaceAll("-","");
      phoneInput.value = phoneInput.value.replaceAll(/[a-zA-Z]+/g,"");
      let regex = new RegExp("^[a-zA-Z\\d._-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,4}$");
-     if (nameInput.value =="" || IsNameInDataOnSite(nameInput.value)) 
+     if (nameInput.value =="") 
      {
          emptyName.style.display = "block";
+         emptyPhone.style.display = "none";
+         emptyEmail.style.display = "none";
+         window.location.href = "index.html#name";
+         return;
+     }
+     if(IsNameInDataOnSite(nameInput.value))
+     {
+         existsName.style.display = "block";
          emptyPhone.style.display = "none";
          emptyEmail.style.display = "none";
          window.location.href = "index.html#name";
@@ -73,7 +81,7 @@
      emptyName.style.display = "none";
      emptyPhone.style.display = "none";
      emptyEmail.style.display = "none";
-     console.log(nameInput.value + " " + companyInput.value + " " + groupInput.value + " " + phoneInput.value + " " + emailInput.value + " " + addressInput.value + " " + birthdayInput.value + " " + lastCall.value+ " " + additionInput.value + " " + descriptionInput.value);
+     //console.log(nameInput.value + " " + companyInput.value + " " + groupInput.value + " " + phoneInput.value + " " + emailInput.value + " " + addressInput.value + " " + birthdayInput.value + " " + lastCall.value+ " " + additionInput.value + " " + descriptionInput.value);
      // Вызов функции добавления/изменения
      addPostData(nameInput, companyInput, groupInput, phoneInput, emailInput, addressInput, birthdayInput, lastCall, additionInput, descriptionInput);
  }
@@ -132,7 +140,7 @@
       emptyName1.style.display = "none";
       emptyPhone1.style.display = "none";
       emptyEmail1.style.display = "none";
-      console.log(nameInput.value + " " + companyInput.value + " " + groupInput.value + " " + phoneInput.value + " " + emailInput.value + " " + addressInput.value + " " + birthdayInput.value + " " + lastCall.value+ " " + additionInput.value + " " + descriptionInput.value);
+      //console.log(nameInput.value + " " + companyInput.value + " " + groupInput.value + " " + phoneInput.value + " " + emailInput.value + " " + addressInput.value + " " + birthdayInput.value + " " + lastCall.value+ " " + additionInput.value + " " + descriptionInput.value);
       // Вызов функции добавления/изменения
       addPostData(nameInput, companyInput, groupInput, phoneInput, emailInput, addressInput, birthdayInput, lastCall, additionInput, descriptionInput);
   }
@@ -154,11 +162,14 @@
 
  
  // Функция добавления/изменения контакта
- function addPostData(nameInput, companyInput, groupInput, phoneInput, emailInput, addressInput, birthdayInput, lastCall, additionInput, descriptionInput) {
+ function addPostData(nameInput, companyInput, groupInput, phoneInput, emailInput, addressInput, birthdayInput, lastCall, additionInput, descriptionInput) 
+ {
      const formData = new FormData();
      dataOnSite = JSON.parse(localStorage.getItem("dataOnSite"));
+     var oldName = "";
      if ("index" in localStorage) 
      {
+        oldName = dataOnSite[localStorage.getItem("index")].name;
         dataOnSite[localStorage.getItem("index")] = {
             "name": nameInput.value,
             "company": companyInput.value,
@@ -173,6 +184,7 @@
         };
         localStorage.removeItem("index")
         localStorage.setItem("dataOnSite", JSON.stringify(dataOnSite));
+        console.log("Изменение");
      } 
      else 
      {
@@ -189,11 +201,13 @@
              "description": descriptionInput.value
          });
          localStorage.setItem("dataOnSite", JSON.stringify(dataOnSite));
+         console.log("Добавление");
      }
  
  // Указание типа операции
      formData.append('operation', 'addPostData');
  // Добавление данных
+     formData.append('oldName', oldName);
      formData.append('name', nameInput.value);
      formData.append('company', companyInput.value);
      formData.append('group', groupInput.value);
@@ -316,7 +330,6 @@
      fetch(scriptUrl, {
          method: 'POST', body: formData
      })
- 
          .then(res => res.json())
  }
  
@@ -457,17 +470,29 @@
      let sortType = document.getElementById("sortParam");
      //sortType.value;
      let data = JSON.parse(localStorage.getItem("dataOnSite"));
-     if (sortType.value == "name") {
+     if (sortType.value == "nameAZ") {
          data.sort(function (a, b) {
-             if (a.name.toString().toLowerCase() < b.name.toString().toLowerCase()) {
+             if (a.name.toString().toLowerCase() > b.name.toString().toLowerCase()) {
                  return -1;
              }
-             if (a.name.toString().toLowerCase() > b.name.toString().toLowerCase()) {
+             if (a.name.toString().toLowerCase() < b.name.toString().toLowerCase()) {
                  return 1;
              }
              return 0;
          })
-     } else if (sortType.value == "lastCall") {
+     }
+     else if (sortType.value == "nameZA") {
+        data.sort(function (a, b) {
+            if (a.name.toString().toLowerCase() < b.name.toString().toLowerCase()) {
+                return -1;
+            }
+            if (a.name.toString().toLowerCase() > b.name.toString().toLowerCase()) {
+                return 1;
+            }
+            return 0;
+        })
+    }
+     else if (sortType.value == "lastCall") {
          data.sort(function (a, b) {
              let date1 = new Date(a.lastCall)
              let date2 = new Date(b.lastCall)
@@ -480,6 +505,19 @@
              return 0;
          })
      }
+     else if (sortType.value == "birthday") {
+        data.sort(function (a, b) {
+            let date1 = new Date(a.birthday)
+            let date2 = new Date(b.birthday)
+            if (date1 > date2) {
+                return 1;
+            }
+            if (date1 < date2) {
+                return -1;
+            }
+            return 0;
+        })
+    }
      localStorage.setItem("dataOnSite", JSON.stringify(data));
      addGotData(data);
  }
