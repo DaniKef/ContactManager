@@ -1,5 +1,5 @@
 body {
-    background: rgb(37, 37, 37);
+    background: rgb(0, 0, 0);
     margin: 0;
     font-family: 'Abyssinica SIL', serif;
 }
@@ -7,7 +7,7 @@ body {
 
 
 .navbar {
-    background: rgb(66, 66, 66);
+    background: rgb(0, 0, 0);
 }
 .container-fluid-first {
     display: flex;
@@ -55,7 +55,7 @@ body {
 }
 .navbar-toggler-icon:hover div {
     width: 100%;
-    background: rgb(176, 44, 202);
+    background: rgb(129, 167, 227);
 }
 .navbar-collapse {
     transform: translateX(-150%);
@@ -81,7 +81,7 @@ body {
     color: white;
 }
 .nav-link:hover {
-    color: rgb(176, 44, 202);
+    color: rgb(129, 167, 227);
 }
 
 .search-d-flex {
@@ -93,7 +93,7 @@ body {
     font-size: 20px;
 }
 .form-select:hover {
-    border-color: rgb(176, 44, 202);
+    border-color: rgb(129, 167, 227);
 }
 .form-control {
     width: 30%;
@@ -102,7 +102,7 @@ body {
     font-size: 20px;
 }
 .form-control:hover {
-    border-color: rgb(176, 44, 202);
+    border-color: rgb(129, 167, 227);
 }
 .btn-form-search {
     height: 25px;
@@ -113,7 +113,7 @@ body {
     color: white;
 }
 .btn-form-search:hover {
-    color: rgb(176, 44, 202);
+    color: rgb(129, 167, 227);
     cursor: pointer;
 }
 
@@ -139,7 +139,7 @@ body {
     margin-bottom: 5px;
 }
 .form-label-AAE sup {
-    color: rgb(176, 44, 202);
+    color: rgb(129, 167, 227);
 }
 .form-control-AAE {
     margin-bottom: 5px;
@@ -149,7 +149,7 @@ body {
     width: 70%;
 }
 .form-control-AAE:hover {
-    border-color: rgb(176, 44, 202);
+    border-color: rgb(129, 167, 227);
 }
 .invalid-feedback-AAE {
     color: red;
@@ -166,6 +166,6 @@ body {
     font-size: 20px;
 }
 .btn-AEE:hover {
-    color: rgb(176, 44, 202);
+    color: rgb(129, 167, 227);
     cursor: pointer;
 }

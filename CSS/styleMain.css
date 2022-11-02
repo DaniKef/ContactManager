@@ -1,8 +1,14 @@
 main {
     min-height: 100vh;
 }
+
+.line {
+    border-bottom: 1px solid rgb(129, 167, 227);
+    width: 260px;
+}
+
 .sortFormClass {
-    background: rgb(51, 51, 51);
+    background: rgb(0, 0, 0);
     display: flex;
     flex-wrap: inherit;
     align-items: center;
@@ -26,7 +32,7 @@ main {
     margin-right: 20px;
 }
 .form-control-sort:hover {
-    border-color: rgb(176, 44, 202);
+    border-color: rgb(129, 167, 227);
 }
 
 
@@ -40,8 +46,8 @@ main {
     font-size: 25px;
 }
 .btn-buttonUp:hover {
-    color: rgb(176, 44, 202);
-    border: 1px solid rgb(176, 44, 202);
+    color: rgb(129, 167, 227);
+    border: 1px solid rgb(129, 167, 227);
     border-radius: 5px;
 }
 
@@ -56,7 +62,7 @@ main {
     margin-bottom: 5px;
 }
 .list-group-item:hover {
-    border: 1px solid rgb(176, 44, 202);
+    border: 1px solid rgb(129, 167, 227);
     border-radius: 7px;
 }
 .contact-name {
@@ -136,6 +142,13 @@ main {
     font-size: 17px;
 }
 
+.line_under_contact-card {
+    border-bottom: 1px solid rgb(129, 167, 227);
+    width: 100px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+
 .list-group-item-loading {
     list-style-type: none;
     text-align: center;
@@ -145,7 +158,7 @@ main {
     height: 30%;
 }
 .list-group-item-loading div {
-    color: rgb(176, 44, 202);
+    color: rgb(129, 167, 227);
     font-family: 'Abyssinica SIL', serif;
     font-size: 20px;
 }
