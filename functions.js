@@ -2,6 +2,8 @@ const navbarSupportedContent = document.getElementById('navbarSupportedContent')
 navbarSupportedContent.style.display ="none";
 const aboutUs = document.getElementById('aboutUs');
 aboutUs.style.display = "none";
+const telegram = document.getElementById('telegram');
+telegram.style.display = "none";
 contactForm.style.display = "none";
 contactForm1.style.display = "none";
 
@@ -49,10 +51,21 @@ function OpenCLoseAboutUs() {
         aboutUs.style.display ="none";
     }
 }
+function OpenCLoseTelegram() {
+    if(telegram.style.display =="none")
+    {
+        telegram.style.display = "block";
+    }
+    else 
+    {
+        telegram.style.display ="none";
+    }
+}
 
 
 document.getElementById('navbar-toggler-btn').addEventListener('click', OpenCLoseNavbar);
 document.getElementById('aboutUsBtn').addEventListener('click', OpenCLoseAboutUs);
+document.getElementById('telegramBtn').addEventListener('click', OpenCLoseTelegram);
 
 
 
