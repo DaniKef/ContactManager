@@ -1,4 +1,4 @@
- const scriptUrl = 'https://script.google.com/macros/s/AKfycby8nJF4ya_Y1ceBKbWe2ZzbQNQRtck-gEumr31eGaFS7KDwoYhGL_xWNRVm3ntk-_Memg/exec'; // Ссылка на развернутое веб-приложение gas
+ const scriptUrl = 'https://script.google.com/macros/s/AKfycbzloWTXdF-228RRjsfjZZGlxkKc7RhkeMxBj-hnBRm2v-oFwtpM7PON6uUuxE6JZpqGow/exec'; // Ссылка на развернутое веб-приложение gas
  let dataOnSite; // Данные которые сейчас на экране
  
  window.onload = () => {
