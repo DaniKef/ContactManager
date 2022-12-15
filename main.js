@@ -27,7 +27,7 @@
      const emailInput = document.getElementById("email");
      phoneInput.value = phoneInput.value.replaceAll("-","");
      phoneInput.value = phoneInput.value.replaceAll(/[a-zA-Z]+/g,"");
-     let regex = new RegExp("^[a-zA-Z\\d._-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,4}$");
+     let regex = new RegExp("^[a-zA-Z\\d._-]+@[a-zA-Z\\d.-]+\\.");
      if (nameInput.value =="") 
      {
          emptyName.style.display = "block";
@@ -93,7 +93,7 @@
       const emailInput = document.getElementById("email1");
       phoneInput.value = phoneInput.value.replaceAll("-","");
       phoneInput.value = phoneInput.value.replaceAll(/[a-zA-Z]+/g,"");
-      let regex = new RegExp("^[a-zA-Z\\d._-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,4}$");
+      let regex = new RegExp("^[a-zA-Z\\d._-]+@[a-zA-Z\\d.-]+\\.");
       if (nameInput.value =="") 
       {
           emptyName1.style.display = "block";
