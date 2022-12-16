@@ -45,6 +45,7 @@ function OpenCLoseAboutUs() {
     if(aboutUs.style.display =="none")
     {
         aboutUs.style.display = "block";
+        telegram.style.display ="none";
     }
     else 
     {
@@ -55,6 +56,7 @@ function OpenCLoseTelegram() {
     if(telegram.style.display =="none")
     {
         telegram.style.display = "block";
+        aboutUs.style.display ="none";
     }
     else 
     {
