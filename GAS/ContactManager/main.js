@@ -1,6 +1,6 @@
 
-const id = '1Kfeb5dhalfHD7Zy7tn8QK48BFqBxyOP726hrSQUC4Io';         // id нужной таблицы google, изменить на то, что надо
-const sheet = SpreadsheetApp.openById(id).getSheetByName('gurenko888@gmail.com'); // Нужный лист таблицы, изменить на то, что надо
+const id = '';         // id нужной таблицы google, изменить на то, что надо
+const sheet = SpreadsheetApp.openById(id).getSheetByName(''); // Нужный лист таблицы, изменить на то, что надо
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
