@@ -4,7 +4,7 @@ const aboutUs = document.getElementById('aboutUs');
 aboutUs.style.display = "none";
 contactForm.style.display = "none";
 contactForm1.style.display = "none";
-
+//
 document.addEventListener('click',(e) =>
   {
     var elementClass = e.target.className;
