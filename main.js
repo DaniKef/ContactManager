@@ -1,8 +1,16 @@
  const scriptUrl = 'https://script.google.com/macros/s/AKfycbzloWTXdF-228RRjsfjZZGlxkKc7RhkeMxBj-hnBRm2v-oFwtpM7PON6uUuxE6JZpqGow/exec'; // Ссылка на развернутое веб-приложение gas
  let dataOnSite; // Данные которые сейчас на экране
  
+ function include(url) {
+    var script = document.createElement('script');
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+}
+ include("user.js");
+
  window.onload = () => {
-     showAllContacts(); // Показать все контакты\
+     let user = new User();
+     user.setButton();
      dataOnSite = JSON.parse(localStorage.getItem("dataOnSite"));
  }
  
@@ -205,6 +213,8 @@
  // Указание типа операции
      formData.append('operation', 'addPostData');
  // Добавление данных
+     formData.append('emailUser', localStorage.getItem("login"));
+     formData.append('password', localStorage.getItem("password"));
      formData.append('oldName', oldName);
      formData.append('name', nameInput.value);
      formData.append('company', companyInput.value);
@@ -235,7 +245,7 @@
         sort()
     } else {
         // Отправляется запрос
-        fetch(scriptUrl)//
+        /*fetch(scriptUrl)//
             .then(res => res.json())
             .then(data => {
                 data = data.reverse();
@@ -244,47 +254,70 @@
                 // Получаем данные
                 dataOnSite = data;
                 sort()
+            })*/
+            const formData = new FormData();
+            formData.append('operation', 'getListOfContacts');
+            formData.append('emailUser', localStorage.getItem("login"));
+            formData.append('password', localStorage.getItem("password"));
+            fetch(scriptUrl, {
+                method: 'POST', body: formData
             })
+                .then(res => res.json())
+                .then(data => {
+                    data = data.reverse();
+                    localStorage.setItem("size", data.length);
+                    localStorage.setItem("dataOnSite", JSON.stringify(data));
+                    // Получаем данные
+                    dataOnSite = data;
+                    sort()
+                });
     }
 }
  
  // Функция отображения всех контактов
  function addGotData(data) {
-     listOfContact.innerHTML = "";
-     //За каждую строку в таблице получаем по ряду
+    listOfContact.innerHTML = "";
+     if(data.length == 0)
+     {
+        listOfContact.innerHTML += " <li class='list-group-item-footer'><p>Додайте ваш перший контакт!</p></li>";
+     }
+     else
+     {
+        //За каждую строку в таблице получаем по ряду
      data.forEach((row, index) => {
-         if (row.name !== 'Name' && row.name !== '') // Проверка важных ячеек, чтоб не выводилась пустота
-         {
-             listOfContact.innerHTML += "<li class=\"list-group-item\">\n" +
-                 "            <div class=\"contact-short-info\">\n" +
-                 "                <a class=\"contact-name id" + index + "\">\n" +
-                 row.name +
-                 "                </a>\n" +
-                 "                <div class = 'contact-buttons'>\n"  +
-                 //Кнопка звонка
-                 "               <a href='tel:" + row.phone + "'><button type=\"button\" class=\"btn-icon-update\" onclick=\"updateLastCall(this)\" data-name='" + row.name + "'><span class='phoneMe'></span>Call</button></a>\n" +
-                 //Кнопка изменения контакта
-                 "                <button type=\"button\" class=\"btn-icon-edit\" onclick=\"editContactFunction(this)\" data-name='" + row.name + "' data-company='" + row.company + "' data-group='" + row.group + "' data-birthday='" + row.birthday + "' data-phone='" + row.phone + "' data-email='" + row.email + "' data-address='" + row.address + "' data-lastCall='" + row.lastCall + "' data-addition='" + row.addition + "' data-description='" + row.description + "' data-id='" + index + "' ><span class='penMe'></span>Edit</button>\n" +
-                 //Кнопка удаления контакта
-                 "                <button type=\"button\" class=\"btn-icon-delete\" onclick=\"deleteContactFunction(this)\" data-name='" + row.name + "'><span class='trashMe'></span>Delete</button>\n" +
-                 "            </div>\n" +
-                 "            </div>\n" +
-                 "            <div style='display : none;' class=\"contact-full-info\" id=\"id" + index + "\">\n" +
-                 "                <div class=\"contact-card\">\n" +
-                 "                    <p><b>Company:</b> " + row.company +
-                 "                    </p><div class='line_under_contact-card'></div><p><b>Group:</b> " + row.group +
-                 "                    </p><div class='line_under_contact-card'></div><p><b>Birthday:</b> " + new Date(row.birthday).toLocaleDateString() +
-                 "                    </p><div class='line_under_contact-card'></div><p><b>Phone:</b> " + row.phone +
-                 "                    </p><div class='line_under_contact-card'></div><p><b>Email:</b> " + row.email +
-                 "                    </p><div class='line_under_contact-card'></div><p><b>Address:</b> " + row.address +
-                 "                    </p><div class='line_under_contact-card'></div><p><b>Last Call:</b> " + new Date(row.lastCall).toLocaleString() +
-                 "                    </p><div class='line_under_contact-card'></div><p><b>Addition Info:</b> " + row.addition +
-                 "                    </p><div class='line_under_contact-card'></div><p><b>Description:</b> " + row.description +
-                 "                </div>\n" +
-                 "            </div>\n" +
-                 "        </li>"
-         }
-     })
+        if (row.name !== 'Name' && row.name !== '') // Проверка важных ячеек, чтоб не выводилась пустота
+        {
+            listOfContact.innerHTML += "<li class=\"list-group-item\">\n" +
+                "            <div class=\"contact-short-info\">\n" +
+                "                <a class=\"contact-name id" + index + "\">\n" +
+                row.name +
+                "                </a>\n" +
+                "                <div class = 'contact-buttons'>\n"  +
+                //Кнопка звонка
+                "               <a href='tel:" + row.phone + "'><button type=\"button\" class=\"btn-icon-update\" onclick=\"updateLastCall(this)\" data-name='" + row.name + "'><span class='phoneMe'></span>Call</button></a>\n" +
+                //Кнопка изменения контакта
+                "                <button type=\"button\" class=\"btn-icon-edit\" onclick=\"editContactFunction(this)\" data-name='" + row.name + "' data-company='" + row.company + "' data-group='" + row.group + "' data-birthday='" + row.birthday + "' data-phone='" + row.phone + "' data-email='" + row.email + "' data-address='" + row.address + "' data-lastCall='" + row.lastCall + "' data-addition='" + row.addition + "' data-description='" + row.description + "' data-id='" + index + "' ><span class='penMe'></span>Edit</button>\n" +
+                //Кнопка удаления контакта
+                "                <button type=\"button\" class=\"btn-icon-delete\" onclick=\"deleteContactFunction(this)\" data-name='" + row.name + "'><span class='trashMe'></span>Delete</button>\n" +
+                "            </div>\n" +
+                "            </div>\n" +
+                "            <div style='display : none;' class=\"contact-full-info\" id=\"id" + index + "\">\n" +
+                "                <div class=\"contact-card\">\n" +
+                "                    <p><b>Company:</b> " + row.company +
+                "                    </p><div class='line_under_contact-card'></div><p><b>Group:</b> " + row.group +
+                "                    </p><div class='line_under_contact-card'></div><p><b>Birthday:</b> " + new Date(row.birthday).toLocaleDateString() +
+                "                    </p><div class='line_under_contact-card'></div><p><b>Phone:</b> " + row.phone +
+                "                    </p><div class='line_under_contact-card'></div><p><b>Email:</b> " + row.email +
+                "                    </p><div class='line_under_contact-card'></div><p><b>Address:</b> " + row.address +
+                "                    </p><div class='line_under_contact-card'></div><p><b>Last Call:</b> " + new Date(row.lastCall).toLocaleString() +
+                "                    </p><div class='line_under_contact-card'></div><p><b>Addition Info:</b> " + row.addition +
+                "                    </p><div class='line_under_contact-card'></div><p><b>Description:</b> " + row.description +
+                "                </div>\n" +
+                "            </div>\n" +
+                "        </li>"
+        }
+    })
+     }
  }
  
  // Функция изменения контакта
@@ -317,6 +350,8 @@
      formData.append('operation', 'deleteContact');
      // Передача номера в качестве параметра
      formData.append('name', object.getAttribute("data-name"));
+     formData.append('emailUser', localStorage.getItem("login"));
+     formData.append('password', localStorage.getItem("password"));
      addGotData(data);
      localStorage.setItem("size", data.length);
      // Запрос
@@ -333,6 +368,8 @@
      const formData = new FormData();
      // Указываем операцию
      formData.append('operation', 'searchContact');
+     formData.append('emailUser', localStorage.getItem("login"));
+     formData.append('password', localStorage.getItem("password"));
      // Указываем колонку по которой идёт поиск
      formData.append('column', searchSelect.value);
      // Указываем значение по которому идёт поиск
@@ -403,7 +440,9 @@
              //Добавляем данные в форму
              const formData = new FormData();
              formData.append('operation', 'importContacts'); // тип операции
-             formData.append('data', lines); // номер телефона
+             formData.append('data', lines); 
+             formData.append('emailUser', localStorage.getItem("login"));
+             formData.append('password', localStorage.getItem("password"));
              //Отправляем запрос с формой в параметре
              fetch(scriptUrl, {
                  method: 'POST', body: formData
@@ -443,6 +482,8 @@
      formData.append('operation', 'updateLastCall');
      // Указываем номер телефона
      formData.append('name', object.getAttribute("data-name"));
+     formData.append('emailUser', localStorage.getItem("login"));
+     formData.append('password', localStorage.getItem("password"));
      // Отображаем данные в тегах
      sort();
      // Отправляем запрос
@@ -508,6 +549,7 @@
  }
 
  function sync() {
-     localStorage.clear();
+     localStorage.removeItem('dataOnSite');
+     localStorage.removeItem('size');
      window.location.href = "index.html";
  }

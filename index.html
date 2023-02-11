@@ -15,6 +15,13 @@
     <link href="CSS/styleHeader.css" rel="stylesheet" type="text/css">
     <link href="CSS/styleMain.css" rel="stylesheet" type="text/css">
     <link href="CSS/styleFooter.css" rel="stylesheet" type="text/css">
+    <link href="CSS/mobile_styles.css" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+    <link href="CSS/styleIcons.css" rel="stylesheet" type="text/css">
+    <link href="CSS/styleHeader.css" rel="stylesheet" type="text/css">
+    <link href="CSS/styleMain.css" rel="stylesheet" type="text/css">
+    <link href="CSS/styleFooter.css" rel="stylesheet" type="text/css">
+   <![endif]-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Abyssinica+SIL&display=swap" rel="stylesheet">
@@ -28,13 +35,16 @@
         <div class="container-fluid">
             <div class="container-fluid-first">
                 <a class="navbar-brand" href="index.html" id="main">Contact Manager</a>
-                <button class="navbar-toggler" id="navbar-toggler-btn">
-                    <div class="navbar-toggler-icon">
-                        <div class="one"></div>
-                        <div class="two"></div>
-                        <div class="three"></div>
-                    </div>
-                </button>
+                <div id="navbarRight">
+                    <div id="divAuthBtn"></div>
+                    <button class="navbar-toggler" id="navbartogglerbtn">
+                        <div class="navbar-toggler-icon">
+                            <div class="one"></div>
+                            <div class="two"></div>
+                            <div class="three"></div>
+                        </div>
+                    </button>
+                </div>
             </div>
             <div class="navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-ul">
@@ -141,8 +151,9 @@
 
  <!--  Main  -->
 <main id="mainContent">
-    <!--  Sort  -->
     <nav class="navLine"><div class="line1"></div><div class="line2"></div></nav>
+    <div id="LogInFormDiv"></div>
+        <!--  Sort  -->
     <div id="sortForm" class="sortFormClass">
         <span class="spanSortBy">Sort by:</span>
         <select class="form-control-sort" id="sortParam" onchange="sort()">
@@ -236,20 +247,12 @@
 </main>
 
  <!--  Footer  -->
- <div class="line4"></div>
 <footer>
+    <div class="line4"></div>
     <nav class="list-group-container">
         <ul class="list-group-footer" id="bottomMenu">
             <li class="list-group-item-footer">
-                <a class="nav-link" href="https://github.com/DaniKef/Kursach_4_1" target="_blank">Git Hub</a>
-            </li>
-            <li class="list-group-item-footer">
-                <a class="nav-link"
-                   href="https://script.google.com/home/projects/1tNqrxG3hnXLHRdO6Gb4S0C7vXY6-xDB6Wot2QxYUQivKKY0Ny-BRvmDL/edit"
-                   target="_blank">Google Script</a>
-            </li>
-            <li class="list-group-item-footer">
-                <a class="nav-link" href="#" onclick="sync()">Table Synchronization</a>
+                <a class="nav-link" href="#" onclick="sync()">Contacts Synchronization</a>
             </li>
             <li class="list-group-item-footer">
                 <a class="nav-link" href="https://t.me/contactManagerTelegram_bot" id="telegramBtn" target="_blank">Telegram</a>

@@ -1,6 +1,6 @@
 .list-group-container {
     margin: 0 auto;
-    background: rgb(0, 0, 0);
+    background: #1a1717;
     padding-top: 15px;
     padding-bottom: 15px;
 }
@@ -14,12 +14,16 @@
     padding-left: 20px;
     padding-right: 20px;
 }
+.list-group-item-footer p {
+    font-size: 18px;
+}
 .collapse-footer-about-us {
     text-align: center;
     transform: translateX(-150%);
     animation: ani 0.25s forwards;
     padding-bottom: 12px;
     padding-top: 12px;
+    background: #1a1717;
 }
 .aboutUsText {
     color: white;

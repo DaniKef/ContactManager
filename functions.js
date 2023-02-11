@@ -51,7 +51,7 @@ function OpenCLoseAboutUs() {
 }
 
 
-document.getElementById('navbar-toggler-btn').addEventListener('click', OpenCLoseNavbar);
+document.getElementById('navbartogglerbtn').addEventListener('click', OpenCLoseNavbar);
 document.getElementById('aboutUsBtn').addEventListener('click', OpenCLoseAboutUs);
 
 

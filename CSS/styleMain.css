@@ -7,25 +7,25 @@ main {
     justify-content: space-between;
 }
 .line1 {
-    border-bottom: 1px solid rgb(129, 167, 227);
+    border-bottom: 2px solid #c75252;
     width: 15%;
 }
 .line2 {
-    border-bottom: 1px solid rgb(129, 167, 227);
+    border-bottom: 2px solid #c75252;
     width: 75%;
 }
 .line3 {
-    border-bottom: 1px solid rgb(129, 167, 227);
+    border-bottom: 2px solid #c75252;
     width: 85%;
 }
 .line4 {
-    border-bottom: 1px solid rgb(129, 167, 227);
+    border-bottom: 2px solid #c75252;
     width: 90%;
     margin-left: auto;
 }
 
 .sortFormClass {
-    background: rgb(0, 0, 0);
+    background: #1a1717;
     display: flex;
     flex-wrap: inherit;
     align-items: center;
@@ -49,7 +49,7 @@ main {
     margin-right: 20px;
 }
 .form-control-sort:hover {
-    border-color: rgb(129, 167, 227);
+    border-color: #c75252;
 }
 
 
@@ -58,13 +58,15 @@ main {
     right: 5px; 
     top: 91%; 
     padding: 10px;
-    background: white; 
+    color: white;
+    background: #1a1717; 
     border-radius: 5px;
     font-size: 25px;
+    z-index: 3;
 }
 .btn-buttonUp:hover {
-    color: rgb(129, 167, 227);
-    border: 1px solid rgb(129, 167, 227);
+    color: #c75252;
+    border: 1px solid #c75252;
     border-radius: 5px;
 }
 
@@ -79,7 +81,7 @@ main {
     margin-bottom: 5px;
 }
 .list-group-item:hover {
-    border: 1px solid rgb(129, 167, 227);
+    border: 1px solid #c75252;
     border-radius: 7px;
 }
 .contact-name {
@@ -102,7 +104,7 @@ main {
     padding-bottom: 20px;
     padding-left: 7px;
     padding-right: 7px;
-    background: white;
+    background: #dedede;
     border-radius: 7px;
     font-size: 20px;
 }
@@ -160,7 +162,7 @@ main {
 }
 
 .line_under_contact-card {
-    border-bottom: 1px solid rgb(129, 167, 227);
+    border-bottom: 1px solid #c75252;
     width: 100px;
     margin-top: -10px;
     margin-bottom: -10px;
@@ -175,10 +177,85 @@ main {
     height: 30%;
 }
 .list-group-item-loading div {
-    color: rgb(129, 167, 227);
+    color: #c75252;
     font-family: 'Abyssinica SIL', serif;
     font-size: 20px;
 }
 
-
+.LogInOutForm {
+    width: fit-content;
+    background: #dedede;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+    border: 1px solid #c75252;
+    border-radius: 4px;
+}
+.divLogInForm {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.divLogInForm p {
+    margin-left: auto;
+    width: 200px;
+}
+.divLogInForm h4 {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    width: 200px;
+}
+.divLogInForm input {
+    margin-left: 20px;
+    margin-right: auto;
+    font-family: 'Abyssinica SIL', serif;
+    border: 1px solid black;
+}
+.divLogButtons {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+.divLogButtons button {
+    font-family: 'Abyssinica SIL', serif;
+    font-size: 15px;
+    border: none;
+}
+#logInBtn:hover{
+    color: #41a364;
+}
+#registrationBtn:hover{
+    color: #41a364;
+}
+#authCancelBtn {
+    margin-left: 25px;
+}
+.divLogButtons button:hover {
+    background: #dedede;
+    color: #c75252;
+    cursor: pointer;
+}
+.divLogSuggestion {
+    display: flex;
+    align-items: center;
+}
+.divLogSuggestion p {
+    margin-left: auto;
+}
+.divLogSuggestion button {
+    font-family: 'Abyssinica SIL', serif;
+    font-weight: bolder;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    margin-right: auto;
+}
+.divLogSuggestion button:hover{
+    color: #417ea3;
+    cursor: pointer;
+}
 

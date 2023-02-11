@@ -1,5 +1,4 @@
 body {
-    background: rgb(0, 0, 0);
     margin: 0;
     font-family: 'Abyssinica SIL', serif;
 }
@@ -7,7 +6,7 @@ body {
 
 
 .navbar {
-    background: rgb(0, 0, 0);
+    background: #1a1717;
 }
 .container-fluid-first {
     display: flex;
@@ -16,7 +15,7 @@ body {
     justify-content: space-between;
 }
 .navbar-brand {
-    font-size: 30px;
+    font-size: 24px;
     color: white;
     text-decoration: none;
     margin-left: 25px;
@@ -29,7 +28,7 @@ body {
     display: inline-block;
     background: transparent;
     border: none;
-    margin-right: 30px;
+    margin-right: 20px;
 }
 .navbar-toggler:hover {
     cursor: pointer;
@@ -55,7 +54,7 @@ body {
 }
 .navbar-toggler-icon:hover div {
     width: 100%;
-    background: rgb(129, 167, 227);
+    background: #c75252;
 }
 .navbar-collapse {
     transform: translateX(-150%);
@@ -81,7 +80,7 @@ body {
     color: white;
 }
 .nav-link:hover {
-    color: rgb(129, 167, 227);
+    color: #c75252;
 }
 
 .search-d-flex {
@@ -93,7 +92,7 @@ body {
     font-size: 20px;
 }
 .form-select:hover {
-    border-color: rgb(129, 167, 227);
+    border-color: #c75252;
 }
 .form-control {
     width: 30%;
@@ -102,7 +101,7 @@ body {
     font-size: 20px;
 }
 .form-control:hover {
-    border-color: rgb(129, 167, 227);
+    border-color: #c75252;
 }
 .btn-form-search {
     height: 25px;
@@ -113,7 +112,24 @@ body {
     color: white;
 }
 .btn-form-search:hover {
-    color: rgb(129, 167, 227);
+    color: #c75252;
+    cursor: pointer;
+}
+#navbarRight {
+    display: flex;
+    align-items: center;
+}
+#authBtn {
+    height: 25px;
+    font-size: 17px;
+    font-family: 'Abyssinica SIL', serif;
+    background: transparent;
+    border: transparent;
+    color: white;
+    margin-right: 50px;
+}
+#authBtn:hover {
+    color: #c75252;
     cursor: pointer;
 }
 
@@ -123,7 +139,7 @@ body {
     margin-right: auto;
     border-radius: 7px;
     margin-top: 15px;
-    border: 1px solid rgb(129, 167, 227);
+    border: 1px solid #c75252;
 }
 .AAE-div {
     width: 80%;
@@ -139,7 +155,7 @@ body {
     margin-bottom: 5px;
 }
 .form-label-AAE sup {
-    color: rgb(129, 167, 227);
+    color: #c75252;
 }
 .form-control-AAE {
     margin-bottom: 5px;
@@ -149,7 +165,7 @@ body {
     width: 70%;
 }
 .form-control-AAE:hover {
-    border-color: rgb(129, 167, 227);
+    border-color: #c75252;
 }
 .invalid-feedback-AAE {
     color: red;
@@ -162,10 +178,10 @@ body {
     font-family: 'Abyssinica SIL', serif;
     border: none;
     background: transparent;
-    color:white;
+    color:#c75252;
     font-size: 20px;
 }
 .btn-AEE:hover {
-    color: rgb(129, 167, 227);
+    color:#41a364;
     cursor: pointer;
 }
