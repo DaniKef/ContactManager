@@ -1,30 +1,25 @@
  const scriptUrl = 'https://script.google.com/macros/s/AKfycbzloWTXdF-228RRjsfjZZGlxkKc7RhkeMxBj-hnBRm2v-oFwtpM7PON6uUuxE6JZpqGow/exec'; // Ссылка на развернутое веб-приложение gas
  let dataOnSite; // Данные которые сейчас на экране
  
- function include(url) {
+ function include(url) // Подключение другого файла js.
+ {
     var script = document.createElement('script');
     script.src = url;
     document.getElementsByTagName('head')[0].appendChild(script);
 }
  include("user.js");
 
- window.onload = () => {
-     let user = new User();
-     user.setButton();
-     dataOnSite = JSON.parse(localStorage.getItem("dataOnSite"));
+ window.onload = () => {       // При загрузке.
+     let user = new User();    // Создание класса пользователя.
+     user.setButton();         // Установка нужных кнопок - авторизации, выхода из аккаунта.
+     dataOnSite = JSON.parse(localStorage.getItem("dataOnSite"));  //Присвоение переменной из локального хранилища контаков.
  }
  
  // Функция для вывода формы добавления контакта
  function AdderSettings() 
  {
-     if(contactForm.style.display == "none")
-     {
-        contactForm.style.display = "block";
-     }
-     else 
-     {
-        contactForm.style.display = "none";
-     }
+     if(contactForm.style.display == "none") { contactForm.style.display = "block"; }
+     else { contactForm.style.display = "none"; }
  }
  
  // Функция для обработки нажатия на кнопку добавления контакта
@@ -151,7 +146,7 @@
       addPostData(nameInput, companyInput, groupInput, phoneInput, emailInput, addressInput, birthdayInput, lastCall, additionInput, descriptionInput);
   }
 
- function CancelBtn() 
+ function CancelBtn()  //Кнопка отмены.
  {
      window.location.href = "index.html";
  }
@@ -244,17 +239,6 @@
     if (("dataOnSite" in localStorage) && (dataLocal.length === JSON.parse(localStorage.getItem("size")))) {
         sort()
     } else {
-        // Отправляется запрос
-        /*fetch(scriptUrl)//
-            .then(res => res.json())
-            .then(data => {
-                data = data.reverse();
-                localStorage.setItem("size", data.length);
-                localStorage.setItem("dataOnSite", JSON.stringify(data));
-                // Получаем данные
-                dataOnSite = data;
-                sort()
-            })*/
             const formData = new FormData();
             formData.append('operation', 'getListOfContacts');
             formData.append('emailUser', localStorage.getItem("login"));
@@ -279,7 +263,7 @@
     listOfContact.innerHTML = "";
      if(data.length == 0)
      {
-        listOfContact.innerHTML += " <li class='list-group-item-footer'><p>Додайте ваш перший контакт!</p></li>";
+        listOfContact.innerHTML += " <li class='list-group-item-footer'><p>Немає контактів!</p></li>";
      }
      else
      {
@@ -361,8 +345,10 @@
          .then(res => res.json())
  }
  
+ include("search.js");
  // Функция поиска данных
  function searchContact() {
+    /*
      const searchSelect = document.getElementById("searchSelect");
      const searchInput = document.getElementById("searchInput");
      const formData = new FormData();
@@ -385,6 +371,11 @@
              //Выводим данные
              addGotData(dataOnSite);
          })
+         */
+        const searchSelect = document.getElementById("searchSelect");
+        const searchInput = document.getElementById("searchInput");
+        dataOnSite = searchContacts(searchSelect.value, searchInput.value);
+        addGotData(dataOnSite);
  }
  
  // Функция экспорта контактов
@@ -453,22 +444,6 @@
      };
  }
  
- //Функция, реализующая напоминание
- /*function reminder() {
-     const formData = new FormData();
-     // Указываем операцию
-     formData.append('operation', 'reminder');
-     // Делаем запрос напоминания
-     fetch(scriptUrl, {
-         method: 'POST', body: formData                //// НАПОМИНАНИЕ ЧЕРЕЗ ТРИГЕРЫ
-     })
-         .then(res => res.json())
- }
- 
- // Устанавливаем интервал напоминания
- setInterval(reminder, 86400000);
- //86400000 - 24часа
- */
  //Функция, которая обновляет дату последнего звонка
  function updateLastCall(object) {
      let data = JSON.parse(localStorage.getItem("dataOnSite"));
