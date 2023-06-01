@@ -84,7 +84,7 @@ const stylesHeader = StyleSheet.create({
     width: 4,
     height: 4,
     borderRadius: 100 / 2,
-    backgroundColor: "white",
+    backgroundColor: "#c75252",
     zIndex: 1,
     margin: 2,
   },

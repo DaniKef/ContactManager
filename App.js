@@ -1,6 +1,7 @@
 import {
   Text,
   View,
+  ScrollView,
   FlatList,
   TextInput,
   TouchableOpacity,
@@ -10,12 +11,15 @@ import {
   Linking,
   StatusBar,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
-import { NavigationContainer, useRoute } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState, useCallback, useEffect } from "react";
+import { Picker } from "@react-native-picker/picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationContainer, useRoute } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import * as SplashScreen from "expo-splash-screen";
+import * as FileSystem from "expo-file-system";
+import { StorageAccessFramework } from "expo-file-system";
+import * as DocumentPicker from "expo-document-picker";
 import { styles, stylesAuthorization, stylesHeader, stylesMain } from "./Style";
 import {
   addPostData,
@@ -24,10 +28,13 @@ import {
   RegistrationUser,
   deleteContactFunction,
   updateLastCall,
+  importContacts,
 } from "./mainF";
 import { searchContacts } from "./search";
 import { sortContacts } from "./sort";
 import { useFonts } from "expo-font";
+
+const Stack = createStackNavigator();
 
 export default function App() {
   const [login, setLogin] = useState("");
@@ -58,7 +65,6 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-  const Stack = createNativeStackNavigator();
 
   return (
     <NavigationContainer
@@ -306,6 +312,56 @@ const HomePage = ({ navigation }) => {
     }
   };
 
+  const exportFile = async (listOfContacts) => {
+    const jsonData = JSON.stringify(listOfContacts);
+    const permissions =
+      await StorageAccessFramework.requestDirectoryPermissionsAsync();
+    if (!permissions.granted) {
+      return;
+    }
+    try {
+      await StorageAccessFramework.createFileAsync(
+        permissions.directoryUri,
+        "export",
+        "application/json"
+      )
+        .then(async (uri) => {
+          await FileSystem.writeAsStringAsync(uri, jsonData, {
+            encoding: FileSystem.EncodingType.UTF8,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } catch (e) {
+      console.error("Ошибка:", e);
+    }
+  };
+
+  const importFile = async () => {
+    try {
+      const file = await DocumentPicker.getDocumentAsync();
+      if (file.type === "success" && file.mimeType === "application/json") {
+        // Чтение содержимого файла
+        const fileContent = await FileSystem.readAsStringAsync(file.uri);
+        importContacts(login, password, fileContent);
+      }
+    } catch (error) {
+      console.error("Ошибка:", error);
+    }
+  };
+
+  const handleOpenLink = () => {
+    const url = "https://t.me/contactManagerTelegram_bot";
+    Linking.openURL(url)
+      .then(() => {
+        console.log("Ссылка открыта успешно");
+      })
+      .catch((error) => {
+        console.error("Ошибка:", error);
+      });
+  };
+
   useEffect(() => {
     const focusHomePage = navigation.addListener("focus", () => {
       loadAsyncStorage();
@@ -386,11 +442,11 @@ const HomePage = ({ navigation }) => {
             onPress={toggleSortMenu}
           >
             <View
-              style={{ backgroundColor: "white", width: 10, height: 2 }}
+              style={{ backgroundColor: "#c75252", width: 10, height: 2 }}
             ></View>
             <View
               style={{
-                backgroundColor: "white",
+                backgroundColor: "#c75252",
                 width: 20,
                 height: 2,
                 marginTop: 5,
@@ -398,7 +454,7 @@ const HomePage = ({ navigation }) => {
             ></View>
             <View
               style={{
-                backgroundColor: "white",
+                backgroundColor: "#c75252",
                 width: 30,
                 height: 2,
                 marginTop: 5,
@@ -574,10 +630,28 @@ const HomePage = ({ navigation }) => {
                     borderWidth: 1,
                   }}
                 >
-                  {/* <TouchableOpacity
+                  <TouchableOpacity
                     onPress={() => {
-                      exportContacts(
-                        searchContacts(listOfContacts, searchedText)
+                      handleOpenLink();
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        fontFamily: "Alkatra",
+                        color: "#1a1717",
+                      }}
+                    >
+                      Telegram
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      exportFile(
+                        sortContacts(
+                          searchContacts(listOfContacts, searchedText),
+                          sortType
+                        )
                       );
                     }}
                   >
@@ -588,9 +662,24 @@ const HomePage = ({ navigation }) => {
                         color: "#1a1717",
                       }}
                     >
-                      Export contacts
+                      Export(JSON)
                     </Text>
-                  </TouchableOpacity> */}
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      importFile();
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        fontFamily: "Alkatra",
+                        color: "#1a1717",
+                      }}
+                    >
+                      Import(JSON)
+                    </Text>
+                  </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
                       setListOfContacts([]);
@@ -605,7 +694,7 @@ const HomePage = ({ navigation }) => {
                         color: "#1a1717",
                       }}
                     >
-                      Load contacts
+                      Synchronize
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
@@ -967,223 +1056,234 @@ const AddContactPage = ({ navigation }) => {
         </View>
       </View>
       <View style={stylesMain.containerMain}>
-        <View style={{ marginLeft: 10, marginTop: 10 }}>
-          <Image
-            source={require("./assets/contactIcon.png")}
-            style={{ width: 70, height: 70, marginLeft: 10 }}
-          ></Image>
+        <ScrollView>
           <View
-            style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
+            style={{
+              marginLeft: 10,
+              marginTop: 10,
+            }}
           >
             <Image
-              source={require("./assets/name.png")}
-              style={{ width: 30, height: 30 }}
-            ></Image>
-            <TextInput
-              selectionColor={"#1a1717"}
-              style={{
-                borderBottomWidth: 1,
-                borderColor: "#1a1717",
-                width: "90%",
-                fontFamily: "Alkatra",
-                fontSize: 17,
-                paddingLeft: 5,
-              }}
-              placeholder="name*"
-              value={name}
-              onChangeText={(text) => setName(text)}
-            />
-          </View>
-          <Text style={styles.errorTextInput}>{errorTextName}</Text>
-          <View
-            style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
-          >
-            <Image
-              source={require("./assets/company.png")}
-              style={{ width: 30, height: 30 }}
-            ></Image>
-            <TextInput
-              selectionColor={"#1a1717"}
-              style={{
-                borderBottomWidth: 1,
-                borderColor: "#1a1717",
-                width: "90%",
-                fontFamily: "Alkatra",
-                fontSize: 17,
-                paddingLeft: 5,
-              }}
-              placeholder="company"
-              value={company}
-              onChangeText={(text) => setCompany(text)}
-            />
-          </View>
-          <View
-            style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
-          >
-            <Image
-              source={require("./assets/group.png")}
-              style={{ width: 30, height: 30 }}
+              source={require("./assets/contactIcon.png")}
+              style={{ width: 70, height: 70, marginLeft: 10 }}
             ></Image>
             <View
               style={{
-                width: "90%",
-                borderBottomWidth: 1,
-                borderColor: "#1a1717",
+                flexDirection: "row",
+                marginTop: 10,
+                marginBottom: 5,
               }}
             >
-              <Picker
-                prompt="group"
+              <Image
+                source={require("./assets/name.png")}
+                style={{ width: 30, height: 30 }}
+              ></Image>
+              <TextInput
+                selectionColor={"#1a1717"}
                 style={{
-                  width: "60%",
+                  borderBottomWidth: 1,
+                  borderColor: "#1a1717",
+                  width: "90%",
+                  fontFamily: "Alkatra",
+                  fontSize: 17,
+                  paddingLeft: 5,
                 }}
-                selectedValue={group}
-                onValueChange={(itemValue, itemIndex) => setGroup(itemValue)}
+                placeholder="name*"
+                value={name}
+                onChangeText={(text) => setName(text)}
+              />
+            </View>
+            <Text style={styles.errorTextInput}>{errorTextName}</Text>
+            <View
+              style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
+            >
+              <Image
+                source={require("./assets/company.png")}
+                style={{ width: 30, height: 30 }}
+              ></Image>
+              <TextInput
+                selectionColor={"#1a1717"}
+                style={{
+                  borderBottomWidth: 1,
+                  borderColor: "#1a1717",
+                  width: "90%",
+                  fontFamily: "Alkatra",
+                  fontSize: 17,
+                  paddingLeft: 5,
+                }}
+                placeholder="company"
+                value={company}
+                onChangeText={(text) => setCompany(text)}
+              />
+            </View>
+            <View
+              style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
+            >
+              <Image
+                source={require("./assets/group.png")}
+                style={{ width: 30, height: 30 }}
+              ></Image>
+              <View
+                style={{
+                  width: "90%",
+                  borderBottomWidth: 1,
+                  borderColor: "#1a1717",
+                }}
               >
-                <Picker.Item label="" value="" />
-                <Picker.Item label="friend" value="friend" />
-                <Picker.Item label="relative" value="relative" />
-                <Picker.Item label="colleague" value="colleague" />
-              </Picker>
+                <Picker
+                  prompt="group"
+                  style={{
+                    width: "60%",
+                  }}
+                  selectedValue={group}
+                  onValueChange={(itemValue, itemIndex) => setGroup(itemValue)}
+                >
+                  <Picker.Item label="" value="" />
+                  <Picker.Item label="friend" value="friend" />
+                  <Picker.Item label="relative" value="relative" />
+                  <Picker.Item label="colleague" value="colleague" />
+                </Picker>
+              </View>
+            </View>
+            <Text style={styles.errorTextInput}>{errorTextGroup}</Text>
+            <View
+              style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
+            >
+              <Image
+                source={require("./assets/phone.png")}
+                style={{ width: 30, height: 30 }}
+              ></Image>
+              <TextInput
+                selectionColor={"#1a1717"}
+                style={{
+                  borderBottomWidth: 1,
+                  borderColor: "#1a1717",
+                  width: "90%",
+                  fontFamily: "Alkatra",
+                  fontSize: 17,
+                  paddingLeft: 5,
+                }}
+                placeholder="phone"
+                value={phone}
+                onChangeText={(text) => setPhone(text)}
+              />
+            </View>
+            <Text style={styles.errorTextInput}>{errorTextPhone}</Text>
+            <View
+              style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
+            >
+              <Image
+                source={require("./assets/email.png")}
+                style={{ width: 30, height: 30 }}
+              ></Image>
+              <TextInput
+                selectionColor={"#1a1717"}
+                style={{
+                  borderBottomWidth: 1,
+                  borderColor: "#1a1717",
+                  width: "90%",
+                  fontFamily: "Alkatra",
+                  fontSize: 17,
+                  paddingLeft: 5,
+                }}
+                placeholder="email"
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+              />
+            </View>
+            <Text style={styles.errorTextInput}>{errorTextEmail}</Text>
+            <View
+              style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
+            >
+              <Image
+                source={require("./assets/address.png")}
+                style={{ width: 30, height: 30 }}
+              ></Image>
+              <TextInput
+                selectionColor={"#1a1717"}
+                style={{
+                  borderBottomWidth: 1,
+                  borderColor: "#1a1717",
+                  width: "90%",
+                  fontFamily: "Alkatra",
+                  fontSize: 17,
+                  paddingLeft: 5,
+                }}
+                placeholder="address"
+                value={address}
+                onChangeText={(text) => setAddress(text)}
+              />
+            </View>
+            <View
+              style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
+            >
+              <Image
+                source={require("./assets/birthday.png")}
+                style={{ width: 30, height: 30 }}
+              ></Image>
+              <TextInput
+                selectionColor={"#1a1717"}
+                style={{
+                  borderBottomWidth: 1,
+                  borderColor: "#1a1717",
+                  width: "90%",
+                  fontFamily: "Alkatra",
+                  fontSize: 17,
+                  paddingLeft: 5,
+                }}
+                placeholder="birthday"
+                value={birthday}
+                onChangeText={(text) => setBirthday(text)}
+              />
+            </View>
+            <View
+              style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
+            >
+              <Image
+                source={require("./assets/addition.png")}
+                style={{ width: 30, height: 30 }}
+              ></Image>
+              <TextInput
+                selectionColor={"#1a1717"}
+                multiline
+                style={{
+                  borderBottomWidth: 1,
+                  borderColor: "#1a1717",
+                  width: "90%",
+                  fontFamily: "Alkatra",
+                  fontSize: 17,
+                  paddingLeft: 5,
+                }}
+                placeholder="addition"
+                value={addition}
+                onChangeText={(text) => setAddition(text)}
+              />
+            </View>
+            <View
+              style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
+            >
+              <Image
+                source={require("./assets/description.png")}
+                style={{ width: 30, height: 30 }}
+              ></Image>
+              <TextInput
+                selectionColor={"#1a1717"}
+                multiline
+                style={{
+                  borderBottomWidth: 1,
+                  borderColor: "#1a1717",
+                  width: "90%",
+                  fontFamily: "Alkatra",
+                  fontSize: 17,
+                  paddingLeft: 5,
+                }}
+                placeholder="description"
+                value={description}
+                onChangeText={(text) => setDescription(text)}
+              />
             </View>
           </View>
-          <Text style={styles.errorTextInput}>{errorTextGroup}</Text>
-          <View
-            style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
-          >
-            <Image
-              source={require("./assets/phone.png")}
-              style={{ width: 30, height: 30 }}
-            ></Image>
-            <TextInput
-              selectionColor={"#1a1717"}
-              style={{
-                borderBottomWidth: 1,
-                borderColor: "#1a1717",
-                width: "90%",
-                fontFamily: "Alkatra",
-                fontSize: 17,
-                paddingLeft: 5,
-              }}
-              placeholder="phone"
-              value={phone}
-              onChangeText={(text) => setPhone(text)}
-            />
-          </View>
-          <Text style={styles.errorTextInput}>{errorTextPhone}</Text>
-          <View
-            style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
-          >
-            <Image
-              source={require("./assets/email.png")}
-              style={{ width: 30, height: 30 }}
-            ></Image>
-            <TextInput
-              selectionColor={"#1a1717"}
-              style={{
-                borderBottomWidth: 1,
-                borderColor: "#1a1717",
-                width: "90%",
-                fontFamily: "Alkatra",
-                fontSize: 17,
-                paddingLeft: 5,
-              }}
-              placeholder="email"
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-            />
-          </View>
-          <Text style={styles.errorTextInput}>{errorTextEmail}</Text>
-          <View
-            style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
-          >
-            <Image
-              source={require("./assets/address.png")}
-              style={{ width: 30, height: 30 }}
-            ></Image>
-            <TextInput
-              selectionColor={"#1a1717"}
-              style={{
-                borderBottomWidth: 1,
-                borderColor: "#1a1717",
-                width: "90%",
-                fontFamily: "Alkatra",
-                fontSize: 17,
-                paddingLeft: 5,
-              }}
-              placeholder="address"
-              value={address}
-              onChangeText={(text) => setAddress(text)}
-            />
-          </View>
-          <View
-            style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
-          >
-            <Image
-              source={require("./assets/birthday.png")}
-              style={{ width: 30, height: 30 }}
-            ></Image>
-            <TextInput
-              selectionColor={"#1a1717"}
-              style={{
-                borderBottomWidth: 1,
-                borderColor: "#1a1717",
-                width: "90%",
-                fontFamily: "Alkatra",
-                fontSize: 17,
-                paddingLeft: 5,
-              }}
-              placeholder="birthday"
-              value={birthday}
-              onChangeText={(text) => setBirthday(text)}
-            />
-          </View>
-          <View
-            style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
-          >
-            <Image
-              source={require("./assets/addition.png")}
-              style={{ width: 30, height: 30 }}
-            ></Image>
-            <TextInput
-              selectionColor={"#1a1717"}
-              multiline
-              style={{
-                borderBottomWidth: 1,
-                borderColor: "#1a1717",
-                width: "90%",
-                fontFamily: "Alkatra",
-                fontSize: 17,
-                paddingLeft: 5,
-              }}
-              placeholder="addition"
-              value={addition}
-              onChangeText={(text) => setAddition(text)}
-            />
-          </View>
-          <View
-            style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}
-          >
-            <Image
-              source={require("./assets/description.png")}
-              style={{ width: 30, height: 30 }}
-            ></Image>
-            <TextInput
-              selectionColor={"#1a1717"}
-              multiline
-              style={{
-                borderBottomWidth: 1,
-                borderColor: "#1a1717",
-                width: "90%",
-                fontFamily: "Alkatra",
-                fontSize: 17,
-                paddingLeft: 5,
-              }}
-              placeholder="description"
-              value={description}
-              onChangeText={(text) => setDescription(text)}
-            />
-          </View>
-        </View>
+        </ScrollView>
       </View>
     </View>
   );

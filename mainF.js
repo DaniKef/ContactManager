@@ -272,6 +272,21 @@ function updateLastCall(login, password, contact, listOfContacts, navigation) {
   }).then((res) => res.json());
 }
 
+function importContacts(login, password, file) {
+  const formData = new FormData();
+  // Указываем операцию
+  formData.append("operation", "importContacts");
+  // Указываем номер телефона
+  formData.append("data", file);
+  formData.append("emailUser", login);
+  formData.append("password", password);
+  // Отправляем запрос
+  fetch(scriptUrl, {
+    method: "POST",
+    body: formData,
+  }).then(() => {});
+}
+
 export {
   addPostData,
   getListOfContacts,
@@ -279,4 +294,5 @@ export {
   RegistrationUser,
   deleteContactFunction,
   updateLastCall,
+  importContacts,
 };
