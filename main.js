@@ -1,5 +1,6 @@
 const scriptUrl =
-  "https://script.google.com/macros/s/AKfycbzloWTXdF-228RRjsfjZZGlxkKc7RhkeMxBj-hnBRm2v-oFwtpM7PON6uUuxE6JZpqGow/exec"; // Ссылка на развернутое веб-приложение gas
+  "https://script.google.com/macros/s/AKfycbyAaTLwZZqiZQUmb_1iieg6OAULP3zvsbqxBV4kFHKmBwnZJKNDSPhOg7NlLqfoKRAwkQ/exec";
+//"https://script.google.com/macros/s/AKfycbzloWTXdF-228RRjsfjZZGlxkKc7RhkeMxBj-hnBRm2v-oFwtpM7PON6uUuxE6JZpqGow/exec"; // Ссылка на развернутое веб-приложение gas
 let dataOnSite; // Данные которые сейчас на экране
 
 function include(url) {
@@ -477,6 +478,10 @@ function exportContacts() {
   a.download = "export.json";
   //Инициируем скачивание
   a.click();
+}
+
+function exportContactsGG() {
+  console.log("11");
 }
 
 //Функция поиска файла для импорта
