@@ -25,70 +25,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Abyssinica+SIL&display=swap" rel="stylesheet">
-    
-    <script src="https://apis.google.com/js/api.js"></script>
 
 </head>
 
 <body>
-    <script>
-        const { gapi } = window;
-        const PEOPLE_KEY =
-          "402889393032-k83caq4mgfaac5lvj9mhtpol841j7elh.apps.googleusercontent.com";
-        const PEOPLE_CLIENT_ID =
-          "402889393032-k83caq4mgfaac5lvj9mhtpol841j7elh.apps.googleusercontent.com";
-        
-        function getGoogleContacts() {
-          // Load the API client and auth2 library
-          gapi.load("client:auth2", initClient);
-        }
-        getGoogleContacts();
-        
-        function initClient() {
-          // initialize the JS client library
-          gapi.client
-            .init({
-              apiKey: "AIzaSyD32Elz8OPuCwhv8MOWK0sfK9B-fHKXrog",
-              clientId:
-                "402889393032-k83caq4mgfaac5lvj9mhtpol841j7elh.apps.googleusercontent.com",
-              // scope is a space delimited string
-              scope: "https://www.googleapis.com/auth/contacts.readonly",
-            })
-            .then(() => {
-              // will show this code down 👇
-            })
-            .catch((error) => console.error(error));
-        }
-        
-        var GoogleAuth = gapi.auth2.getAuthInstance();
-        // Listen for sign-in state changes.
-        GoogleAuth.isSignedIn.listen(updateSigninStatus);
-        // Handle the initial sign-in state.
-        updateSigninStatus(GoogleAuth.isSignedIn.get());
-        
-        function updateSigninStatus(isSignedIn) {
-          if (isSignedIn) {
-            makeApiCall();
-          } else {
-            GoogleAuth.signIn();
-          }
-        }
-        
-        function makeApiCall() {
-          // https://developers.google.com/people/api/rest/v1/people.connections/list
-          gapi.client.people.people.connections
-            .list({
-              resourceName: "people/me", // deprecated (required for now)
-              personFields: "emailAddresses,names,phoneNumbers",
-            })
-            .then((response) => {
-              formatResults(response.result.connections);
-            })
-            .catch((error) => {
-              return error.result.error.message;
-            });
-        }
-            </script>
+   
      <!--  Header  -->
 <header>
     <nav class="navbar">

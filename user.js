@@ -125,37 +125,25 @@ function Registration() {
 }
 
 function logInUser() {
-  //   const formData = new FormData();
-  //   formData.append("operation", "logIn");
-  //   formData.append("emailUser", inputEmail.value);
-  //   formData.append("password", inputPassword.value);
-  //   fetch(scriptUrl, {
-  //     method: "POST",
-  //     body: formData,
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data[0].result == "NotExists") {
-  //         divLogInSuccess.style.display = "block";
-  //       } else {
-  //         divLogInSuccess.style.display = "none";
-  //         localStorage.setItem("login", data[0].result);
-  //         localStorage.setItem("password", data[0].password);
-  //         window.location.href = "index.html";
-  //       }
-  //     });
-  let headers = new Headers();
-  headers.append("Content-Type", "application/json");
-  //headers.append("Accept", "application/json");
-  // headers.append(
-  //   "Access-Control-Allow-Headers",
-  //   "Origin, X-Requested-With, Content-Type, Accept"
-  // );
+  const formData = new FormData();
+  formData.append("operation", "logIn");
+  formData.append("emailUser", inputEmail.value);
+  formData.append("password", inputPassword.value);
   fetch(scriptUrl, {
-    method: "GET",
+    method: "POST",
+    body: formData,
   })
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error));
+    .then((res) => res.json())
+    .then((data) => {
+      if (data[0].result == "NotExists") {
+        divLogInSuccess.style.display = "block";
+      } else {
+        divLogInSuccess.style.display = "none";
+        localStorage.setItem("login", data[0].result);
+        localStorage.setItem("password", data[0].password);
+        window.location.href = "index.html";
+      }
+    });
 }
 
 function LogOutForm() {
