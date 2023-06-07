@@ -539,6 +539,51 @@ function importContacts() {
   };
 }
 
+function importContactsVCF() {
+  //Ищем файл
+  let fileInput = document.getElementById("file");
+  getImportFile();
+  //Когда нашли:
+  fileInput.onchange = () => {
+    //Валидируем получение файла
+    if (!fileInput) {
+      alert("Um, couldn't find the file input element.");
+    } else if (!fileInput.files) {
+      alert(
+        "This browser doesn't seem to support the `files` property of file inputs."
+      );
+    } else if (!fileInput.files[0]) {
+      alert("Please select a file before clicking 'Load'");
+    } else {
+      //Файл корректен, читаем данные, отправляем данные в таблицу
+      let file = fileInput.files[0];
+      let fr = new FileReader();
+      fr.onload = receivedText;
+      fr.readAsText(file);
+    }
+
+    //Функция отправки данных импорта
+    function receivedText(e) {
+      let lines = parse(e.target.result);
+      localStorage.setItem("dataOnSite", JSON.stringify(lines));
+      // показать все данные в таблице
+      localStorage.setItem("size", lines.length);
+      sort();
+      //Добавляем данные в форму
+      const formData = new FormData();
+      formData.append("operation", "importContacts"); // тип операции
+      formData.append("data", JSON.stringify(lines));
+      formData.append("emailUser", localStorage.getItem("login"));
+      formData.append("password", localStorage.getItem("password"));
+      //Отправляем запрос с формой в параметре
+      fetch(scriptUrl, {
+        method: "POST",
+        body: formData,
+      }).then(() => {});
+    }
+  };
+}
+
 //Функция, которая обновляет дату последнего звонка
 function updateLastCall(object) {
   let data = JSON.parse(localStorage.getItem("dataOnSite"));
@@ -627,3 +672,253 @@ function sync() {
   localStorage.removeItem("size");
   window.location.href = "index.html";
 }
+
+var PREFIX = "BEGIN:VCARD",
+  POSTFIX = "END:VCARD";
+/**
+ * Return json representation of vCard
+ * @param {string} string raw vCard
+ * @returns {*}
+ */
+function parse(string) {
+  var jsonArr = [];
+  let name = "";
+  let company = "";
+  let group = "";
+  let birthday = "";
+  let phone = "";
+  let email = "";
+  let address = "";
+  let lastCall = "";
+  let addition = "";
+  let description = "";
+
+  var lines = string.split(/\r\n|\r|\n/),
+    count = lines.length,
+    pieces,
+    key,
+    value,
+    meta,
+    namespace;
+
+  for (var i = 0; i < count; i++) {
+    if (lines[i] === "") {
+      continue;
+    }
+    if (
+      lines[i].toUpperCase() === PREFIX ||
+      lines[i].toUpperCase() === POSTFIX
+    ) {
+      continue;
+    }
+    var data = lines[i];
+
+    /**
+     * Check that next line continues current
+     * @param {number} i
+     * @returns {boolean}
+     */
+    var isValueContinued = function (i) {
+      return (
+        i + 1 < count && (lines[i + 1][0] === " " || lines[i + 1][0] === "\t")
+      );
+    };
+    // handle multiline properties (i.e. photo).
+    // next line should start with space or tab character
+    if (isValueContinued(i)) {
+      while (isValueContinued(i)) {
+        data += lines[i + 1].trim();
+        i++;
+      }
+    }
+
+    pieces = data.split(":");
+    key = pieces.shift();
+    value = pieces.join(":");
+    namespace = false;
+    meta = {};
+
+    // meta fields in property
+    if (key.match(/;/)) {
+      key = key.replace(/\\;/g, "ΩΩΩ").replace(/\\,/, ",");
+      var metaArr = key.split(";").map(function (item) {
+        return item.replace(/ΩΩΩ/g, ";");
+      });
+      key = metaArr.shift();
+      metaArr.forEach(function (item) {
+        var arr = item.split("=");
+        arr[0] = arr[0].toLowerCase();
+        if (arr[0].length === 0) {
+          return;
+        }
+        if (meta[arr[0]]) {
+          meta[arr[0]].push(arr[1]);
+        } else {
+          meta[arr[0]] = [arr[1]];
+        }
+      });
+    }
+
+    // values with \n
+    value = value.replace(/\\n/g, "\n");
+
+    value = tryToSplit(value);
+
+    // Grouped properties
+    if (key.match(/\./)) {
+      var arr = key.split(".");
+      key = arr[1];
+      namespace = arr[0];
+    }
+
+    var newValue = {
+      value: value,
+    };
+    if (Object.keys(meta).length) {
+      newValue.meta = meta;
+    }
+    if (namespace) {
+      newValue.namespace = namespace;
+    }
+
+    if (key.indexOf("X-") !== 0) {
+      key = key.toLowerCase();
+    }
+
+    // if (typeof result[key] === "undefined") {
+    //   result[key] = [newValue];
+    // } else {
+    //   result[key].push(newValue);
+    // }
+    //console.log(newValue.value + " ==== " + key);
+    if (key == "version") {
+      const temp = {
+        name: name,
+        company: company,
+        group: group,
+        birthday: birthday,
+        phone: phone,
+        email: email,
+        address: address,
+        lastCall: lastCall,
+        addition: addition,
+        description: description,
+      };
+      jsonArr.push(temp);
+    }
+    if (key == "fn") {
+      name = newValue.value;
+    }
+    if (key == "org") {
+      company = newValue.value;
+    }
+    if (key == "group") {
+      group = "";
+    }
+    if (key == "bday") {
+      birthday = newValue.value;
+    }
+    if (key == "tel") {
+      phone = newValue.value;
+    }
+    if (key == "email") {
+      email = newValue.value;
+    }
+    if (key == "adr") {
+      address = newValue.value;
+    }
+    if (key == "lastCall") {
+      lastCall = "";
+    }
+    if (key == "addition") {
+      addition = "";
+    }
+    if (key == "description") {
+      description = "";
+    }
+    if (i == count - 1 || i == count - 2 || i == count - 3 || i == count - 4) {
+      const temp = {
+        name: name,
+        company: company,
+        group: group,
+        birthday: birthday,
+        phone: phone,
+        email: email,
+        address: address,
+        lastCall: lastCall,
+        addition: addition,
+        description: description,
+      };
+      jsonArr.push(temp);
+    }
+  }
+  return jsonArr;
+}
+
+var HAS_SEMICOLON_SEPARATOR = /[^\\];|^;/,
+  HAS_COMMA_SEPARATOR = /[^\\],|^,/;
+/**
+ * Split value by "," or ";" and remove escape sequences for this separators
+ * @param {string} value
+ * @returns {string|string[]
+ */
+function tryToSplit(value) {
+  if (value.match(HAS_SEMICOLON_SEPARATOR)) {
+    value = value.replace(/\\,/g, ",");
+    return splitValue(value, ";");
+  } else if (value.match(HAS_COMMA_SEPARATOR)) {
+    value = value.replace(/\\;/g, ";");
+    return splitValue(value, ",");
+  } else {
+    return value.replace(/\\,/g, ",").replace(/\\;/g, ";");
+  }
+}
+/**
+ * Split vcard field value by separator
+ * @param {string|string[]} value
+ * @param {string} separator
+ * @returns {string|string[]}
+ */
+function splitValue(value, separator) {
+  var separatorRegexp = new RegExp(separator);
+  var escapedSeparatorRegexp = new RegExp("\\\\" + separator, "g");
+  // easiest way, replace it with really rare character sequence
+  value = value.replace(escapedSeparatorRegexp, "ΩΩΩ");
+  if (value.match(separatorRegexp)) {
+    value = value.split(separator);
+
+    value = value.map(function (item) {
+      return item.replace(/ΩΩΩ/g, separator);
+    });
+  } else {
+    value = value.replace(/ΩΩΩ/g, separator);
+  }
+  return value;
+}
+
+var guid = (function () {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return function () {
+    return (
+      s4() +
+      s4() +
+      "-" +
+      s4() +
+      "-" +
+      s4() +
+      "-" +
+      s4() +
+      "-" +
+      s4() +
+      s4() +
+      s4()
+    );
+  };
+})();
+
+var COMMA_SEPARATED_FIELDS = ["nickname", "related", "categories", "pid"];
+var REQUIRED_FIELDS = ["fn"];

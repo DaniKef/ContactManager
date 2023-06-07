@@ -25,7 +25,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Abyssinica+SIL&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
@@ -120,10 +119,13 @@
 
                     </li>
                     <li class="nav-ul-item" id="importContact">
-                        <a class="nav-link" onclick="importContacts();" href="#" id="import" >Import</a>
+                        <a class="nav-link" onclick="importContacts();" href="#" id="import" >Import(JSON)</a>
+                    </li>
+                    <li class="nav-ul-item" id="">
+                        <a class="nav-link" onclick="importContactsVCF();" href="#" id="" >Import(VCF)</a>
                     </li>
                     <li class="nav-ul-item" id="exportContact">
-                        <a class="nav-link" href="#" onclick="exportContacts();" id="export">Export</a>
+                        <a class="nav-link" href="#" onclick="exportContacts();" id="export">Export(JSON)</a>
                     </li>
                 </ul>
                 <div id="searchForm" class="search-d-flex" role="search">
@@ -268,7 +270,7 @@
         </ul>
     </nav>
     <div class="collapse-footer-about-us" id="aboutUs">
-        <span class="aboutUsText">2022. Менеджер контактів.</span>
+        <span class="aboutUsText">2023. Менеджер контактів.</span>
     </div>
 </footer>
 <script src="functions.js"></script>
