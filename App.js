@@ -29,6 +29,7 @@ import {
   deleteContactFunction,
   updateLastCall,
   importContacts,
+  importContactsVCF,
 } from "./mainF";
 import { searchContacts } from "./search";
 import { sortContacts } from "./sort";
@@ -344,7 +345,19 @@ const HomePage = ({ navigation }) => {
       if (file.type === "success" && file.mimeType === "application/json") {
         // Чтение содержимого файла
         const fileContent = await FileSystem.readAsStringAsync(file.uri);
-        importContacts(login, password, fileContent);
+        importContacts(login, password, fileContent, setListOfContacts);
+      }
+    } catch (error) {
+      console.error("Ошибка:", error);
+    }
+  };
+  const importFileVCF = async () => {
+    try {
+      const file = await DocumentPicker.getDocumentAsync();
+      if (file.type === "success") {
+        // Чтение содержимого файла
+        const fileContent = await FileSystem.readAsStringAsync(file.uri);
+        importContactsVCF(login, password, fileContent, setListOfContacts);
       }
     } catch (error) {
       console.error("Ошибка:", error);
@@ -678,6 +691,21 @@ const HomePage = ({ navigation }) => {
                       }}
                     >
                       Import(JSON)
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      importFileVCF();
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        fontFamily: "Alkatra",
+                        color: "#1a1717",
+                      }}
+                    >
+                      Import(VCF)
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
